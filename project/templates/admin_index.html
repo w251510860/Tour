@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理后台登录界面</title>
+    <link href="../static/admin/admin_index.css" type="text/css" rel="stylesheet">
+    <script src="../static/jquery.min.js"></script>
+
+    <script >
+        var Back = {
+            curBack: "{% for url in pic_urls %}{{ url }}{% endfor %}",
+            index: 1,
+        }
+    </script>
+    <script src="../static/admin/change_background.js"></script>
+</head>
+<body>
+<div class="login_div">
+    {% for url in pic_urls %}
+        {% if loop.index == 1 %}
+    <img src="{{ url }}" height="100%" width="100%" id="img_back">
+        {% endif %}
+    {% endfor %}
+    <button class="btn_change">切换背景图</button>
+    <form action="admin_index.html" method="post" id="form_action">
+        <ul>
+            <li class="login_admin">管理员登录</li>
+            {% for i in ["密码", "账号"] %}
+
+                <li>
+                    <span class="span_css">{{ i }}:</span>
+                    <label class="label_css">
+                        <input type="text" name="{{ loop.index | filter_css }}" class="{{ loop.index | filter_css }}"/>
+                    </label>
+                </li>
+            {% endfor %}
+            <li>
+                <input type="submit" value="登录" class="login_btn">
+            </li>
+        </ul>
+
+    </form>
+</div>
+</body>
+</html>

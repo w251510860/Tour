@@ -23,6 +23,12 @@ def create_app(config_name):
     global redis_db
     redis_db = StrictRedis(configs[config_name].REDIS_HOST, configs[config_name].REDIS_PORT)
 
+    from project.modules.admin import admin_blueprint
+    app.register_blueprint(admin_blueprint)
+
+    from project.modules.utils import filter_customer
+    app.add_template_filter(filter_customer.filter_css)
+
     CSRFProtect(app)
 
     Session(app)
