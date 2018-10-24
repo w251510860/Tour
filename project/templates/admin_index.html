@@ -13,6 +13,8 @@
         }
     </script>
     <script src="../static/admin/change_background.js"></script>
+    <script src="../static/js/admin_login.js"></script>
+
 </head>
 <body>
 <div class="login_div">
@@ -22,7 +24,8 @@
         {% endif %}
     {% endfor %}
     <button class="btn_change">切换背景图</button>
-    <form action="admin_index.html" method="post" id="form_action">
+    <form method="post" id="form_action">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <ul>
             <li class="login_admin">管理员登录</li>
             {% for i in ["密码", "账号"] %}
@@ -30,16 +33,20 @@
                 <li>
                     <span class="span_css">{{ i }}:</span>
                     <label class="label_css">
-                        <input type="text" name="{{ loop.index | filter_css }}" class="{{ loop.index | filter_css }}"/>
+                        <input type="{{ loop.index | filter_input_type }}" name="{{ loop.index | filter_css }}" class="{{ loop.index | filter_css }}"/>
                     </label>
                 </li>
             {% endfor %}
             <li>
                 <input type="submit" value="登录" class="login_btn">
             </li>
+            <li>
+                <span class="span_msg"></span>
+            </li>
         </ul>
 
     </form>
 </div>
+
 </body>
 </html>
