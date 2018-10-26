@@ -4,6 +4,7 @@ from redis import StrictRedis
 from config import configs
 from flask_wtf import CSRFProtect
 from flask_session import Session
+from flask_wtf.csrf import generate_csrf
 
 
 db = SQLAlchemy()
@@ -22,6 +23,19 @@ def create_app(config_name):
 
     global redis_db
     redis_db = StrictRedis(configs[config_name].REDIS_HOST, configs[config_name].REDIS_PORT)
+
+    from project.modules.admin import admin_blueprint
+    app.register_blueprint(admin_blueprint)
+
+    @app.after_request
+    def after_request(response):
+        csrf = generate_csrf(configs[config_name].SECRET_KEY)
+        response.set_cookie("csrf_token", csrf)
+        return response
+
+    from project.modules.utils import filter_customer
+    app.add_template_filter(filter_customer.filter_css)
+    app.add_template_filter(filter_customer.filter_input_type)
 
     CSRFProtect(app)
 

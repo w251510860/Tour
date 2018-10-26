@@ -1,0 +1,71 @@
+body, div, form, ul, li{padding: 0; margin: 0;}
+
+html{
+    height: 100%;
+}
+body{
+    color: white;
+    height: 100%;
+    font-size: 25px;
+}
+.login_div{
+    height: 100%;
+    width: 100%;
+}
+.btn_change{
+    position: absolute;
+    opacity: 0.8;
+    width: 120px;
+    height: 50px;
+    right: 10%;
+    top: 10%;
+    font-size: 15px;
+    border-radius: 10px;
+}
+#img_back{
+    float: left;
+}
+#form_action{
+    height: 400px;
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    margin-top: 15%;
+    opacity: 0.8;
+}
+ul{
+    height: 400px;
+    width: 40%;
+    margin: 0 auto;
+    background-color: black;
+    border-radius: 20px;
+}
+ul li{
+    margin-top: 25px;
+    list-style: none;
+    float: left;
+    width: 100%;
+    height: 20%;
+}
+.label_css{
+    float: right;
+    margin-right: 20%;
+    height: 30px;
+}
+.span_css{
+    float: left;
+    margin-left: 22%;
+    line-height: 40px;
+}
+.label_css input{
+    height: 30px;
+    width: 220px;
+    border-radius: 8px;
+}
+.login_btn{
+    height: 50px;
+    width: 80px;
+    border-radius: 10px;
+    font-size: 28px;
+    opacity: 0.6;
+}
