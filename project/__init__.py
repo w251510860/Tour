@@ -36,6 +36,7 @@ def create_app(config_name):
     from project.modules.utils import filter_customer
     app.add_template_filter(filter_customer.filter_css)
     app.add_template_filter(filter_customer.filter_input_type)
+    app.add_template_filter(filter_customer.filter_user_css)
 
     CSRFProtect(app)
 
