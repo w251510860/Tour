@@ -10,3 +10,10 @@ def filter_input_type(index):
         return "text"
     else:
         return "password"
+
+
+def filter_user_css(index):
+    if (index % 2) == 0:
+        return "all_users_li"
+    else:
+        return "all_users_li_other"

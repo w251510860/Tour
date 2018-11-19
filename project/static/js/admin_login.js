@@ -22,7 +22,7 @@ $(function(){
             success:function (resp) {
 
                 if(resp.error==200){
-                    window.location.href = "/admin/page";
+                    window.location.href = "/admin/page?index=" + (resp.back - 1);
                 }else{
                     $(".span_msg").css("background", "white");
                     $(".span_msg").css("color", "black");

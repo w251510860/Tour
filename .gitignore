@@ -5,7 +5,7 @@ __pycache__/
 logs/*
 # C extensions
 *.so
-.project/static/picture/*
+project/static/user_head_pic/*
 .idea
 .idea/*
 *.py[cod]
