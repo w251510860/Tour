@@ -53,6 +53,8 @@ class User(BaseModel, db.Model):
 
     id_style = db.Column(db.Enum("user", "admin"), default="user")  # 身份类型（用户和管理员）
 
+    private_sign = db.Column(db.String(256))
+
     # 用户发表的常识(攻略)
     user_know = db.relationship("Knowledge", backref="user", lazy="dynamic")
 
@@ -72,7 +74,7 @@ class User(BaseModel, db.Model):
             "nick_name": self.nick_name,
             "pic_url": self.pic_url,
             "phone_num": self.phone_num,
-            "last_login": self.last_login
+            "last_login": self.last_login,
         }
 
         return resp_dict
@@ -89,7 +91,8 @@ class User(BaseModel, db.Model):
             "pic_url": self.pic_url,
             "phone_num": self.phone_num,
             "user_live": self.user_live,
-            "last_login": self.last_login
+            "last_login": self.last_login,
+            "private_sign": self.private_sign
         }
         return resp_dict
 
@@ -224,5 +227,3 @@ class Question(BaseModel, db.Model):
             "create_time": self.create_time.strftime("%Y-%m-%d %H:%M:%S")
         }
         return resp_dict
-
-

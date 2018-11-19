@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>管理员后台-{{data.user_name}}</title>
+    <link rel="stylesheet" href="../static/admin/page.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+    <script type="text/javascript" src="../static/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/jquery.form.min.js">
+
+    </script>
+    <script type="text/javascript" src="../static/js/admin_page.js"></script>
+    <script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+  </head>
+  <body>
+    <div class="wrapper" data-id="{{ data.user_id }}" data-back="{{ data.index_back }}">
+      <div class="title">
+        欢迎登录管理后台...
+      </div>
+      <div class="tab">
+        <ul class="tab_ul">
+          <li>
+            <img src="" alt="logo">
+          </li>
+          {% for tab in data.tabs %}
+            <li class="tab_li" onclick="active_tab({{ loop.index }})">{{ tab }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="box">
+        <div class="left_son_tab">
+          <ul class="tab_son_ul">
+            <li class="info_person" onclick="show_person()">个人信息管理</li>
+            <li class="info_users" onclick="show_users()">用户信息管理</li>
+          </ul>
+          <div class="users_list" style="display: none;">
+            <ul class="all_users_ul">
+              {% for user in data.users %}
+              <li class="{{ loop.index | filter_user_css }}" onclick="get_user_info({{ user.id }})">{{ user.nick_name }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+        <div class="right_content">
+          <!-- <svg id="tb_svg">
+            <linearGradient id="wow" gradientTransform="rotate(45)">
+              <stop stop-color="red"></stop>
+              <stop stop-color="green" offset="1"></stop>
+            </linearGradient>
+            <rect width="80%" height="300px" style="fill: url(#wow);opacity: 0.5;">
+          </svg> -->
+
+
+          <table id="tb_name" class="tb_name" cellspacing="0" cellpadding="0" border="5" style="stroke: url(#wow);stroke-width: 18px;stroke-dasharray: 10px 5px;">
+            <tr>
+              <td>昵称：</td><td class="td_name"></td>
+              <td>头像：</td><td class="td_pic"><img src="" alt="管理员头像" height="200px" width="150px" class="img_pic"/></td>
+
+            </tr>
+            <tr>
+              <td>电话：</td><td class="td_phone"></td>
+              <td>最近一次的登录：</td><td class="td_last"></td>
+            </tr>
+          </table>
+
+          <table id="tb_user" style="display: none;" border="4">
+            <tr>
+              <td class="user_pic" rowspan="3" colspan="1" ><img src="" alt="用户头像" id="user_pic"></td>
+              <td >昵称:</td><td class="user_nick" style="width: 120px;"></td>
+              <td colspan="2">
+                <button type="button" name="button" class="btn_op" onclick="alter_info()">修改用户信息</button>
+              </td>
+            </tr>
+            <tr>
+              <td >个性签名:</td><td class="user_sign" colspan="8"></td>
+            </tr>
+            <tr>
+              <td>性别:</td>
+              <td class="user_sex">
+                <span><input type="radio" name="sex" value="man">男</span>
+                <span><input type="radio" name="sex" value="women">女</span>
+              </td>
+              <td colspan="1">联系电话:</td><td class="user_phone" colspan="1"></td>
+            </tr>
+            <tr>
+              <td>
+                <button type="button" name="button" class="btn_op" onclick="alter_pic()">修改头像</button>
+              </td>
+              <td>用户居住地:</td><td class="user_live"></td>
+              <td>最近一次的登录:</td><td class="user_last"></td>
+            </tr>
+          </table>
+
+
+        </div>
+      </div>
+      
+
+
+      
+    </div>
+
+    <div class="alter_window" style="display:none;height:100vh;position: absolute;top: 0;left: 0;width: 100vw;background: rgba(0,0,0,0.5);">
+
+      <div style="background: white;position: absolute;left: 65%;top: 15%;border-radius: 50%;" onclick="hide_alter()">
+        <img src="../static/picture/hide.svg" height="50px" width="50px">
+      </div>
+
+      <div class="alter_pic_module">
+
+        <div style="margin: 20px 0 0 40px;">
+          <div style="width:80%;height:200px;border: 1px dashed black;">
+            <img src="" alt="图片预览" id="img_user_pic" height="200px" width="80%">
+          </div>
+        </div>
+        <form class="form_alter_pic" >
+
+          <table style="margin: 20px 0 0 20px; text-align: center;width: 80%;">
+            <tr>
+              <td>
+                <input type="hidden" name="i" >
+                <input type="file" name="pic_url" id="pic_url" value="" style="width: 28%;" onchange="change_pic(this)">
+              </td>
+            </tr>
+            <tr>
+              <td >选择图片文件(.jpg,.png)</td>
+            </tr>
+          </table>
+          <div class="btn_sure_alter_pic">
+            <input type="submit" name="" value="确定上传" id="sure_pic" >
+          </div>
+        </form>
+      </div>
+
+      alter_info_window
+
+    </div>
+
+    <div class="alter_info_window" style="display:none;height:100vh;position: absolute;top: 0;left: 0;width: 100vw;background: rgba(0,0,0,0.5);">
+      <div style="background: white;position: absolute;left: 65%;top: 15%;border-radius: 50%;" onclick="hide_alter()">
+        <img src="../static/picture/hide.svg" height="50px" width="50px">
+      </div>
+
+      <div class="info_module" >
+        <form class="info_form" >
+
+          <table id="table_info" class="display" style="margin: 20px 0 0 20px; text-align: center;width: 100%;">
+            <input type="hidden" name="i" >
+            <tr>
+              <td>昵称：</td><td><input type="text" name="nick" value="" class="input_css"></td>
+            </tr>
+            <tr>
+              <td>个性签名：</td><td><textarea name="sign" class="person_sign" id="person_sign"></textarea></td>
+            </tr>
+            <tr>
+              <td>性别：</td><td>
+                <span class="raido_sex"><input type="radio" name="sex_info" value="man" >男</span>
+                <span class="raido_sex" style="margin-left: 2em;"><input type="radio" name="sex_info" value="woman">女</span>
+              </td>
+            </tr>
+            <tr>
+              <td>联系电话：</td><td><input type="text" name="phone" value="" class="input_css"></td>
+            </tr>
+            <tr>
+              <td>居住地：</td><td><input type="text" name="live" value="" class="input_css"></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <input type="submit" name="btn_sub" value="确认修改信息" style="width: 120px;height:60px;font-size: 35px;">
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+
+    </div>
+  </body>
+</html>

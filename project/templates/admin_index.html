@@ -20,12 +20,13 @@
 <div class="login_div">
     {% for url in pic_urls %}
         {% if loop.index == 1 %}
-    <img src="{{ url }}" id="img_back">
+    <img src="{{ url }}" height="100%" width="100%" id="img_back">
         {% endif %}
     {% endfor %}
     <button class="btn_change">切换背景图</button>
     <form method="post" id="form_action">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="index_back" class="index_back" value="1">
         <ul>
             <li class="login_admin">管理员登录</li>
             {% for i in ["密码", "账号"] %}

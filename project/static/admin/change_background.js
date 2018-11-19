@@ -12,6 +12,7 @@ $(document).ready(function () {
         if(Back.index > 5){
             Back.index = 1;
         }
+        $(".index_back").val(Back.index);
         $("#img_back").attr("src", pic_list[Back.index]);
     });
 });
