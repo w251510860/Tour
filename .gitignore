@@ -2,9 +2,11 @@
 __pycache__/
 *.py[cod]
 *$py.class
-logs
+logs/*
 # C extensions
 *.so
+.project/static/picture/*
+.idea
 .idea/*
 *.py[cod]
 
