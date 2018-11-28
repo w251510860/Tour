@@ -18,6 +18,7 @@ class CmtLike:
 
     clicks = db.Column(db.Integer, default=0)  # 点击数
 
+
 """
 用户和常识（攻略）的多对多的关系
 """
@@ -41,7 +42,7 @@ class User(BaseModel, db.Model):
 
     sex = db.Column(db.Enum("man", "woman"), default="man")  # 性别
 
-    pic_url = db.Column(db.String(256))   # 头像
+    pic_url = db.Column(db.String(256))  # 头像
 
     password = db.Column(db.String(128), nullable=False)  # 密码
 
@@ -147,11 +148,11 @@ class Travel(BaseModel, CmtLike, db.Model):
 
     phone = db.Column(db.String(11), nullable=False)  # 联系电话
 
-    price = db.Column(db.String(11))   # 门票价格
+    price = db.Column(db.String(11))  # 门票价格
 
     website = db.Column(db.String(128))  # 景点网站
 
-    place = db.Column(db.String(256))   # 景点具体地点
+    place = db.Column(db.String(256))  # 景点具体地点
 
     def to_dict(self):
         resp_dict = {
@@ -176,15 +177,15 @@ class Comment(BaseModel, CmtLike, db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))   # 外键（用户）
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))  # 外键（用户）
 
-    title = db.Column(db.String(256), nullable=False)   # 评论的标题
+    title = db.Column(db.String(256), nullable=False)  # 评论的标题
 
-    content = db.Column(db.Text, nullable=False)   # 评论内容
+    content = db.Column(db.Text, nullable=False)  # 评论内容
 
     like_degree = db.Column(db.Enum("0", "1", "2", '3', '4', '5'), default="5")  # 评论该景点的喜欢程度（1不喜欢-5最喜欢）
 
-    parent_id = db.Column(db.Integer, db.ForeignKey("comment.id"))   # 父评论的ID
+    parent_id = db.Column(db.Integer, db.ForeignKey("comment.id"))  # 父评论的ID
 
     parent = db.relationship("Comment", remote_side=[id])  # 自关联
 
@@ -209,13 +210,13 @@ class Question(BaseModel, db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))   # 外键（用户）
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))  # 外键（用户）
 
-    content = db.Column(db.String(256), nullable=False)   # 问题内容
+    content = db.Column(db.String(256), nullable=False)  # 问题内容
 
     dot_time = db.Column(db.DateTime, default=datetime.now, nullable=False)  # 发布问题的时间点
 
-    cmt_cnt = db.Column(db.Integer, default=0)   # 评论数
+    cmt_cnt = db.Column(db.Integer, default=0)  # 评论数
 
     def to_dict(self):
         resp_dict = {
