@@ -29,6 +29,8 @@ def create_app(config_name):
     app.register_blueprint(admin_blueprint)
     from project.modules.homepage import homepage_blueprint
     app.register_blueprint(homepage_blueprint)
+    from project.modules.passport import passport_blu
+    app.register_blueprint(passport_blu)
 
     @app.after_request
     def after_request(response):
