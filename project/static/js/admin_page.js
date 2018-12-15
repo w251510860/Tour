@@ -17,8 +17,6 @@ $(function(){
       type: "POST",
       headers: {"X-CSRF-Token": getCookie('csrf_token')},
       success: function(resp){
-        alert(resp.errmsg);
-        alert(resp.data.pic_url);
         $(".alter_window").hide();
         $("#user_pic").attr("src", resp.data.pic_url);
       }
@@ -65,11 +63,32 @@ function getCookie(name) {
     return r ? r[1] : undefined;
 }
 
+function remove_back(index) {
+    $('#'+index).addClass('show_background');
+    $('#'+index).siblings().removeClass('show_background');
+}
 // 切换tab
 function active_tab(index){
   if(index == 1){
     var user_id = $(".wrapper").attr("data-id");
     get_admin_info(user_id);
+    remove_back(index);
+    $('.box').show();
+    $('.box').siblings().hide();
+  }
+  if(index == 2){
+    remove_back(index);
+    $('.travel_box').show();
+    $('.travel_box').siblings().hide();
+  }
+  if(index == 3){
+    remove_back(index);
+  }
+  if(index == 4){
+    remove_back(index);
+  }
+  if(index == 5){
+    remove_back(index);
   }
   if(index == 9){
     logout();

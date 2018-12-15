@@ -39,10 +39,15 @@ def login():
     if not (user.password == pwd):
         return jsonify(error=1405, errmsg="用户密码填写错误")
 
+    user_style = user.id_style
+
+    if user_style not in ['user', 'admin']:
+        return jsonify(error=1405, errmsg='游客未注册')
+
     session["nick_name"] = user.nick_name
     session["user_id"] = user.id
 
-    return jsonify(error=200, errmsg="登录成功", back=index_back)
+    return jsonify(error=200, errmsg="登录成功", back=index_back, style=user_style)
 
 
 @admin_blueprint.route("/page", methods=["GET"])
@@ -203,7 +208,6 @@ def alter_pic():
     return jsonify(error=200, errmsg="success", data=data)
 
 
-
 @admin_blueprint.route("/alter_user_info/", methods=["POST"])
 def alter_user_info():
 
@@ -248,3 +252,8 @@ def alter_user_info():
     }
 
     return jsonify(error=200, errmsg="成功", data=data)
+
+
+@admin_blueprint.route("/add_travel", methods=['GET'])
+def add_travel():
+    return render_template('admin/add_travel.html')

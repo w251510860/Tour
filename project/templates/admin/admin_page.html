@@ -23,11 +23,12 @@
             <img src="" alt="logo">
           </li>
           {% for tab in data.tabs %}
-            <li class="tab_li" onclick="active_tab({{ loop.index }})">{{ tab }}</li>
+            <li class="tab_li" id="{{ loop.index }}" onclick="active_tab({{ loop.index }})">{{ tab }}</li>
           {% endfor %}
         </ul>
       </div>
-      <div class="box">
+        <div>
+            <div class="box" style="display: none;">
         <div class="left_son_tab">
           <ul class="tab_son_ul">
             <li class="info_person" onclick="show_person()">个人信息管理</li>
@@ -95,8 +96,12 @@
 
         </div>
       </div>
-      
 
+            <div class="travel_box" style="display: none;">
+            <iframe src="{{ url_for('admin.add_travel') }}" class="travel_frame"></iframe>
+        </div>
+
+        </div>
 
       
     </div>
