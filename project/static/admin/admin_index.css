@@ -4,25 +4,25 @@ body, div, form, ul, li {
 }
 
 html {
-    height: 100%;
+    height: 100vh;
 }
 
 body {
     color: white;
-    height: 100%;
+    height: 100vh;
     font-size: 25px;
 }
 
 .login_div {
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
 }
 
 .btn_change {
     position: absolute;
     opacity: 0.8;
-    width: 100%;
-    height: 100%;
+    width: 10vw;
+    height: 5vh;
     right: 10%;
     top: 10%;
     font-size: 15px;
@@ -30,37 +30,34 @@ body {
 }
 
 #img_back {
-    background-size: 100% 100%;
-    width: 100%;
-    height: 100%;
-    -webkit-background-size: cover; // 适配webkit内核
-    -moz-background-size: cover;    // 适配FF内核
-    -o-background-size: cover;      // 适配Opera内核
+    width: 100vw;
+    height: 100vh;
 }
 
 #form_action {
-    height: 400px;
-    width: 100%;
+    /*height: 50vh;*/
+    width: 100vw;
     position: absolute;
     text-align: center;
-    margin-top: 15%;
+    margin-top: 10%;
+    top: 0;
     opacity: 0.8;
 }
 
 ul {
-    height: 400px;
-    width: 40%;
+    height: 50vh;
+    width: 40vw;
     margin: 0 auto;
     background-color: black;
     border-radius: 20px;
 }
 
 ul li {
-    margin-top: 25px;
+    margin-top: 2vh;
     list-style: none;
     float: left;
     width: 100%;
-    height: 20%;
+    height: 9vh;
 }
 
 .label_css {

@@ -9,7 +9,7 @@ project/static/user_head_pic/*
 .idea
 .idea/*
 *.py[cod]
-
+.DS_S*
 migrations
 # Distribution / packaging
 .Python

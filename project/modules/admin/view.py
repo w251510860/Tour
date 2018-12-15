@@ -15,7 +15,7 @@ import datetime
 @save_pic
 def index():
 
-    return render_template("admin/../../templates/admin_index.html", pic_urls=g.pic_list)
+    return render_template("admin/admin_index.html", pic_urls=g.pic_list)
 
 
 @admin_blueprint.route("/login", methods=["POST"])
@@ -82,7 +82,7 @@ def page():
         "users": u_list if users else None,
     }
 
-    return render_template("admin/../../templates/admin_page.html", data=data)
+    return render_template("admin/admin_page.html", data=data)
 
 
 @admin_blueprint.route("/get_admin_info", methods=["GET"])
@@ -134,7 +134,6 @@ def logout():
     except Exception as e:
         return jsonify(error=1410, errmsg="错误")
 
-
     return redirect(url_for("admin.index"))
 
 
@@ -174,10 +173,11 @@ def alter_pic():
         return jsonify(error=1003, errmsg="文件无法读取")
 
     import time
+    import os
 
     time_now = time.time()
-
-    with open("./project/static/user_head_pic/user{}.jpg".format(time_now), "wb") as f:
+    cur_prj = os.getcwd()
+    with open(''.join((cur_prj, "/project/static/user_head_pic/user{}.jpg".format(time_now))), "wb") as f:
         f.write(file_bin)
 
     # 保存至数据库
