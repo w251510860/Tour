@@ -24,8 +24,13 @@ def create_app(config_name):
     global redis_db
     redis_db = StrictRedis(configs[config_name].REDIS_HOST, configs[config_name].REDIS_PORT)
 
+    # 注册路由
     from project.modules.admin import admin_blueprint
     app.register_blueprint(admin_blueprint)
+    from project.modules.homepage import homepage_blueprint
+    app.register_blueprint(homepage_blueprint)
+    from project.modules.passport import passport_blu
+    app.register_blueprint(passport_blu)
 
     @app.after_request
     def after_request(response):

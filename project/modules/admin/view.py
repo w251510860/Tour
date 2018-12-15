@@ -15,7 +15,7 @@ import datetime
 @save_pic
 def index():
 
-    return render_template("admin_index.html", pic_urls=g.pic_list)
+    return render_template("admin/../../templates/admin_index.html", pic_urls=g.pic_list)
 
 
 @admin_blueprint.route("/login", methods=["POST"])
@@ -82,7 +82,7 @@ def page():
         "users": u_list if users else None,
     }
 
-    return render_template("admin_page.html", data=data)
+    return render_template("admin/../../templates/admin_page.html", data=data)
 
 
 @admin_blueprint.route("/get_admin_info", methods=["GET"])
