@@ -1,5 +1,4 @@
 import redis
-import flask_session
 
 
 class BaseConfig:

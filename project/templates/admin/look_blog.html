@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>攻略</title>
+    <style>
+        *{padding: 0;margin: 0;}
+        .blog_box{
+            width: 100%;
+        }
+        .look_box{
+            width: 30%;
+            height: 100vh;
+            background: #17202A;
+            color: white;
+            position: fixed;
+        }
+        .look_box .font_inner{
+            position: fixed;
+            left: 10%;
+            top: 40%;
+        }
+        .look_box .font_inner label{
+            font-size: 28px;
+            font-weight: 800;
+            font-style: oblique;
+            margin: 40px;
+        }
+        .look_box .font_inner .font_inner_admin{
+            font-size: 15px;
+            font-weight: 200;
+            margin-top: 10px;
+            margin-left: 100px;
+            font-style: italic;
+        }
+        .look_box .font_inner  .font_inner_say{
+            margin-top: 30px;
+            animation: say_blink 5s infinite;
+        }
+        @keyframes say_blink {
+            0%{     color: navajowhite;    }
+            25%{    color: ghostwhite; }
+            50%{    color: antiquewhite; }
+            85%{    color: floralwhite;  }
+            100%{   color: whitesmoke;    }
+        }
+        .blog_content{
+            width: 65%;
+            display: grid;
+            grid-template-rows: min-content;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        .blog_content div{
+            margin-top: 20px;
+            margin-bottom: 80px;
+        }
+        .title{
+            font-style: oblique;
+        }
+        .article{
+            margin-top: 10px;
+            text-indent: 2em;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body style="background: whitesmoke;">
+<div class="blog_box">
+    <div class="look_box">
+        <div class="font_inner">
+            <label>旅游攻略</label>
+            <p class="font_inner_admin">--后台管理攻略</p>
+            <p class="font_inner_say">记录生活, 记录点滴...</p>
+        </div>
+    </div>
+    <div class="blog_content" >
+        {% for index in data.blog %}
+            <div class="content">
+                <label style="font-size: 16px;margin: 0;font-style: italic;color: darkgray;">
+                    {{ index['create_time'] }}
+                </label>
+                <hr style="border: 1px solid lightgray;margin-bottom: 20px;"/>
+                <h2 class="title">
+                    {{ index['name'] }}
+                </h2><br/>
+                <span style="color: gray">By {{ index['user']['nick_name'] }}</span>
+                <p class="article">
+                {{ index['content'] }}
+                </p>
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+</body>
+</html>

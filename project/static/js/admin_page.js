@@ -55,7 +55,7 @@ $(function(){
     });
   });
 
-  $("#table_info").DataTable();
+  // $("#table_info").DataTable();
 });
 
 function getCookie(name) {
@@ -83,6 +83,8 @@ function active_tab(index){
   }
   if(index == 3){
     remove_back(index);
+    $('.travel_bolg').show();
+    $('.travel_bolg').siblings().hide();
   }
   if(index == 4){
     remove_back(index);

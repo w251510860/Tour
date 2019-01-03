@@ -1,5 +1,5 @@
 from . import admin_blueprint
-from project.modules.models import User
+from project.modules.models import User, Travel, Blog
 
 
 from flask import render_template, request, jsonify, current_app
@@ -9,6 +9,7 @@ from project.modules.utils.pack import save_pic
 
 from project import db
 import datetime
+import time
 
 
 @admin_blueprint.route("/index", methods=["GET"])
@@ -134,7 +135,7 @@ def logout():
 
     admin.last_login = datetime.datetime.now()
 
-    try: 
+    try:
         db.session.commit()
     except Exception as e:
         return jsonify(error=1410, errmsg="错误")
@@ -175,21 +176,24 @@ def alter_pic():
     try:
         file_bin = file_pic.read()
     except Exception as e:
-        return jsonify(error=1003, errmsg="文件无法读取")
+        return jsonify(error=1003, errmsg="文件无法读取%s" % e)
 
-    import time
     import os
 
     time_now = time.time()
     cur_prj = os.getcwd()
-    with open(''.join((cur_prj, "/project/static/user_head_pic/user{}.jpg".format(time_now))), "wb") as f:
+    with open(''.join((cur_prj,
+                       "/project/static/"
+                       "user_head_pic/user{}.jpg".
+                       format(time_now))),
+              "wb") as f:
         f.write(file_bin)
 
     # 保存至数据库
     try:
         user = User.query.get(user_id)
     except Exception as e:
-        return jsonify(error=1400, errmsg="用户信息错误")
+        return jsonify(error=1400, errmsg="用户信息错误 %s" % e)
 
     if not user:
         return jsonify(error=1004, errmsg="用户信息为空")
@@ -199,7 +203,7 @@ def alter_pic():
     try:
         db.session.commit()
     except Exception as e:
-        return jsonify(error=1004, errmsg="修改错误")
+        return jsonify(error=1004, errmsg="修改错误 %s" % e)
 
     data = {
         "pic_url": user.pic_url,
@@ -231,7 +235,7 @@ def alter_user_info():
     try:
         user = User.query.get(u_id)
     except Exception as e:
-        return jsonify(errmsg="查询错误", error=1400)
+        return jsonify(errmsg="查询错误%s" % e, error=1400)
 
     user.nick_name = nick_name
     user.sex = sex
@@ -241,7 +245,7 @@ def alter_user_info():
     # import datetime
     # user.last_login = datetime.datetime.now()
 
-    try: 
+    try:
         db.session.commit()
     except Exception as e:
         print(e)
@@ -254,6 +258,60 @@ def alter_user_info():
     return jsonify(error=200, errmsg="成功", data=data)
 
 
-@admin_blueprint.route("/add_travel", methods=['GET'])
+@admin_blueprint.route('/travel', methods=['GET'])
+def travel():
+    if request.method == 'GET':
+
+        travel_obj = Travel.query.all()
+
+        data = {
+            'travel': [t.to_dict() for t in travel_obj],
+        }
+
+        return render_template('admin/travel.html', data=data)
+
+
+@admin_blueprint.route("/add_travel", methods=['GET', 'POST'])
 def add_travel():
-    return render_template('admin/add_travel.html')
+
+    if request.method == 'GET':
+
+        return render_template('admin/add_travel.html')
+
+    else:
+        name = request.form.get('name')
+        pic_link = request.form.get('pic_link')
+        open_time = request.form.get('open_time')
+        advice_time = request.form.get('advice_time')
+        phone = request.form.get('phone')
+        price = request.form.get('price')
+        website = request.form.get('website')
+        place = request.form.get('place')
+
+        data = {
+            'name': name,
+            'pic_link': pic_link,
+            'open_time': open_time,
+            'advice_time': advice_time,
+            'phone': phone,
+            'price': price,
+            'website': website,
+            'place': place,
+        }
+
+        travel = Travel(**data)
+        db.session.add(travel)
+        db.session.commit()
+        return redirect('/admin/add_travel')
+
+
+@admin_blueprint.route('/look_blog', methods=['GET'])
+def look_blog():
+
+    blog_objects = Blog.query.all()
+
+    data = {
+        'blog': [i.to_dict() for i in blog_objects],
+    }
+
+    return render_template('admin/look_blog.html', data=data)

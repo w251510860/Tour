@@ -2,21 +2,86 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>添加旅游景点</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
+          integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+
+    <style>
+        *{padding: 0;margin: 0;}
+        .box{
+            width: 100%;
+            height: 100vh;
+            background: whitesmoke;
+        }
+        .add_travel{
+            text-align: center;
+            position: absolute;
+            left: 30%;
+            top: 10%;
+        }
+        .pure-control-group label{
+            font-weight: 800;
+        }
+        .pure-control-group input{
+            width: 230px;
+            height: 6vh;
+            font-style: oblique;
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
-    <div class="box">
-        <form action="" method="." id="form_travel">
-            <label><input type="text" name="name" /></label>
-            <label><input type="text" name="pic_link" /></label>
-            <label><input type="text" name="open_time" /></label>
-            <label><input type="text" name="advice_time" /></label>
-            <label><input type="text" name="phone" /></label>
-            <label><input type="text" name="price" /></label>
-            <label><input type="text" name="website" /></label>
-            <label><input type="text" name="place" /></label>
-            <label><input type="submit" name="submit" value="创建" /></label>
-        </form>
-    </div>
+<div class="box">
+    <form class="pure-form pure-form-aligned add_travel" method="post" action="/admin/add_travel">
+        <fieldset>
+            <label><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"></label>
+            <div class="pure-control-group">
+                <label for="name">景点名称:</label>
+                <input id="name" type="text" placeholder="景点名称" name="name">
+{#                <span class="pure-form-message-inline">必填</span>#}
+            </div>
+
+            <div class="pure-control-group">
+                <label for="pic_link">景点链接:</label>
+                <input id="pic_link" name="pic_link" type="text">
+            </div>
+
+            <div class="pure-control-group">
+                <label for="open_time">景点开门时间:</label>
+                <input id="open_time" name="open_time" type="text">
+            </div>
+
+            <div class="pure-control-group">
+                <label for="advice_time">建议游玩时长:</label>
+                <input id="advice_time" type="text" name="advice_time" placeholder="单位/小时">
+            </div>
+
+            <div class="pure-control-group">
+                <label for="phone">联系电话:</label>
+                <input id="phone" type="number" name="phone" placeholder="11位纯数字">
+            </div>
+
+            <div class="pure-control-group">
+                <label for="price">建议价格:</label>
+                <input id="price" type="text" name="price" placeholder="人民币">
+            </div>
+
+            <div class="pure-control-group">
+                <label for="website">网站地址:</label>
+                <input id="website" type="text" name="website" placeholder="www.demo.com">
+            </div>
+
+            <div class="pure-control-group">
+                <label for="place">详细地址:</label>
+                <input id="place" type="text" name="place">
+            </div>
+
+            <div class="pure-controls">
+                <button type="submit" class="pure-button pure-button-primary">创建景点</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
 </body>
 </html>

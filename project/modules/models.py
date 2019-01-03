@@ -5,7 +5,8 @@ from datetime import datetime
 class BaseModel:
     # 基本模型类--创建和更新的时间
     create_time = db.Column(db.DateTime, default=datetime.now)  # 记录的创建时间
-    update_time = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)  # 记录的更新时间
+    update_time = db.Column(
+        db.DateTime, default=datetime.now, onupdate=datetime.now)  # 记录的更新时间
 
 
 class CmtLike:
@@ -24,9 +25,15 @@ class CmtLike:
 """
 the_user_know = db.Table(
     "user_know",
-    db.Column("user_id", db.Integer, db.ForeignKey('user.id'), primary_key=True),
-    db.Column("know_id", db.Integer, db.ForeignKey('know.id'), primary_key=True),
-    db.Column("create_time", db.DateTime, default=datetime.now)
+    db.Column("user_id", db.Integer,
+              db.ForeignKey('user.id'),
+              primary_key=True),
+    db.Column("know_id", db.Integer,
+              db.ForeignKey('know.id'),
+              primary_key=True),
+    db.Column("create_time",
+              db.DateTime,
+              default=datetime.now)
 )
 
 
@@ -52,7 +59,8 @@ class User(BaseModel, db.Model):
 
     last_login = db.Column(db.DATETIME, default=datetime.now)  # 最后登录时间
 
-    id_style = db.Column(db.Enum("user", "admin"), default="user")  # 身份类型（用户和管理员）
+    id_style = db.Column(db.Enum("user", "admin"),
+                         default="user")  # 身份类型（用户和管理员）
 
     private_sign = db.Column(db.String(256))
 
@@ -183,7 +191,8 @@ class Comment(BaseModel, CmtLike, db.Model):
 
     content = db.Column(db.Text, nullable=False)  # 评论内容
 
-    like_degree = db.Column(db.Enum("0", "1", "2", '3', '4', '5'), default="5")  # 评论该景点的喜欢程度（1不喜欢-5最喜欢）
+    # 评论该景点的喜欢程度（1不喜欢-5最喜欢）
+    like_degree = db.Column(db.Enum("0", "1", "2", '3', '4', '5'), default="5")
 
     parent_id = db.Column(db.Integer, db.ForeignKey("comment.id"))  # 父评论的ID
 
@@ -214,7 +223,8 @@ class Question(BaseModel, db.Model):
 
     content = db.Column(db.String(256), nullable=False)  # 问题内容
 
-    dot_time = db.Column(db.DateTime, default=datetime.now, nullable=False)  # 发布问题的时间点
+    dot_time = db.Column(db.DateTime, default=datetime.now,
+                         nullable=False)  # 发布问题的时间点
 
     cmt_cnt = db.Column(db.Integer, default=0)  # 评论数
 
@@ -224,6 +234,33 @@ class Question(BaseModel, db.Model):
             "user": User.query.get(self.user_id).to_user_dict(),
             "content": self.content,
             "dot_time": self.dot_time.strftime("%Y-%m-%d %H:%M:%S"),
+            "cmt_cnt": self.cmt_cnt,
+            "create_time": self.create_time.strftime("%Y-%m-%d %H:%M:%S")
+        }
+        return resp_dict
+
+
+class Blog(BaseModel, CmtLike, db.Model):
+
+    __tablename__ = "blog"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    title = db.Column(db.String(128), nullable=False)
+
+    content = db.Column(db.Text, default='', nullable=False)
+
+    cmt_cnt = db.Column(db.Integer, default=0)  # 评论数
+
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def to_dict(self):
+
+        resp_dict = {
+            "id": self.id,
+            "user": User.query.get(self.user_id).to_user_dict(),
+            "content": self.content,
+            "title": self.title,
             "cmt_cnt": self.cmt_cnt,
             "create_time": self.create_time.strftime("%Y-%m-%d %H:%M:%S")
         }

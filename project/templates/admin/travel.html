@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>景点页面</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
+      integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .t_box {
+            background: whitesmoke;
+            height: 100vh;
+        }
+
+        .left_nav p {
+            padding: 20px 30px 20px 30px;
+            border: 1px solid gray;
+            width: 10vw;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="t_box">
+    <div class="left_nav">
+        <p>旅游景点列表</p>
+        <p>添加旅游景点</p>
+    </div>
+    <div class="right_box">
+        
+        <table class="pure-table pure-table-horizontal">
+            <thead>
+                <tr>
+                    <th>景点名称</th>
+                    <th>网址</th>
+                    <th>营业时间</th>
+                    <th>建议游玩时间</th>
+                    <th>联系方式</th>
+                    <th>价格</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for t in data.travel %}
+                    <tr>
+                        <td>{{ t.name }}</td>
+                        <td>{{ t.website }}</td>
+                        <td>{{ t.open_time }}</td>
+                        <td>{{ t.advice_time }}</td>
+                        <td>{{ t.phone }}</td>
+                        <td>{{ t.price }}</td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
