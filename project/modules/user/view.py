@@ -40,6 +40,8 @@ def logout():
         user.last_login = time.time()
         db.session.commit()
     except Exception as e:
-        return redirect(url_for('user.login'))
+        current_app.log.error(e)
+        return jsonify(error=4006, errmsg='更新用户最后登录时间失败')
+    return redirect(url_for('user.login'))
 
 
