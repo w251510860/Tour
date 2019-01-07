@@ -1,7 +1,6 @@
 from . import admin_blueprint
 from project.modules.models import User
 
-
 from flask import render_template, request, jsonify, current_app
 from flask import redirect, url_for, session, g
 
@@ -14,7 +13,6 @@ import datetime
 @admin_blueprint.route("/index", methods=["GET"])
 @save_pic
 def index():
-
     return render_template("admin/admin_index.html", pic_urls=g.pic_list)
 
 
@@ -87,7 +85,6 @@ def page():
 
 @admin_blueprint.route("/get_admin_info", methods=["GET"])
 def admin_info():
-
     admin_id = request.args.get("admin_id")
 
     if not id:
@@ -129,7 +126,7 @@ def logout():
 
     admin.last_login = datetime.datetime.now()
 
-    try: 
+    try:
         db.session.commit()
     except Exception as e:
         return jsonify(error=1410, errmsg="错误")
@@ -203,10 +200,8 @@ def alter_pic():
     return jsonify(error=200, errmsg="success", data=data)
 
 
-
 @admin_blueprint.route("/alter_user_info/", methods=["POST"])
 def alter_user_info():
-
     nick_name = request.form.get("nick")
 
     sign = request.form.get("sign")
@@ -237,7 +232,7 @@ def alter_user_info():
     # import datetime
     # user.last_login = datetime.datetime.now()
 
-    try: 
+    try:
         db.session.commit()
     except Exception as e:
         print(e)
