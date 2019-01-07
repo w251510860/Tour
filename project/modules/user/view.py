@@ -7,7 +7,7 @@ from . import user_blueprint
 from project.modules.models import User
 
 
-@user_blueprint.route('/login', ['post'])
+@user_blueprint.route('/login', methods=['POST'])
 def login():
     username = request.form.get('username')
     password = request.form.get('password')
@@ -19,17 +19,15 @@ def login():
     if password != user.password:
         return jsonify(error=4005, errmsg='用户名或密码错误')
     session['username'] = username
-    session['password'] = password
+    session['user_id'] = user.id
     return jsonify(error=200, errmsg='登录成功')
 
 
-@user_blueprint.route('/logout', ['get'])
+@user_blueprint.route('/logout', methods=['get'])
 def logout():
     username = session.pop("username")
-    password = session.pop("password")
-    if not username:
-        return jsonify(error=4006, errmsg='用户未登录')
-    if not password:
+    user_id = session.pop("user_id")
+    if not username or not user_id:
         return jsonify(error=4006, errmsg='用户未登录')
     try:
         user = User.query.filter(User.nick_name == username).first()
