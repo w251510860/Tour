@@ -7,7 +7,7 @@ from . import user_blueprint
 from project.modules.models import User
 
 
-@user_blueprint.route('/login', methods=['POST'])
+@user_blueprint.route('/login', methods=['post'])
 def login():
     username = request.form.get('username')
     password = request.form.get('password')
@@ -40,6 +40,27 @@ def logout():
     except Exception as e:
         current_app.log.error(e)
         return jsonify(error=4006, errmsg='更新用户最后登录时间失败')
-    return redirect(url_for('user.login'))
+    return redirect(url_for('index'))
 
+
+@user_blueprint.route('/register', methods=['post'])
+def register():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    password2 = request.form.get('password2')
+    if password != password2:
+        return jsonify(errmsg='两次密码不一致')
+    try:
+        User.nick_name = username
+        User.password = password
+        db.session.commit()
+    except Exception as e:
+        current_app.log.error(e)
+        return jsonify(error=5001, errmsg='注册失败，请重试')
+    return redirect(url_for('login'))
+
+
+@user_blueprint.errorhandler(404)
+def not_found_page(e):
+    return '别看了，啥也找不到！！！'
 
