@@ -9,11 +9,6 @@
 
     <style>
         *{padding: 0;margin: 0;}
-        .box{
-            width: 100%;
-            height: 100vh;
-            background: whitesmoke;
-        }
         .add_travel{
             text-align: center;
             position: absolute;
@@ -30,10 +25,31 @@
             font-size: 12px;
         }
     </style>
+    <script>
+        $(function(){
+            $('.add_travel').submit(function(e){
+                e.preventDefault();
+                $.ajax({
+                    url:"/admin/add_travel",
+                    type:'POST',
+                    data: $(this).serialize(),
+                    success: function(resp){
+                        console.log(resp.data);
+                        var t = resp.data;
+                        $('.travel_list').append('<tr ><td>'+ t.name +'</td><td><a href="">'+ t.website +'</a></td>'+
+                            '<td>'+ t.open_time +'</td><td>'+ t.advice_time +'</td><td>'+ t.phone +'</td>'+
+                            '<td>￥'+ t.price +'</td><td><a href="">操作</a></td></tr>');
+                        show_tab(1);
+                    },
+                });
+            });
+
+        })
+    </script>
 </head>
 <body>
-<div class="box">
-    <form class="pure-form pure-form-aligned add_travel" method="post" action="/admin/add_travel">
+<div class="travel_t_box">
+    <form class="pure-form pure-form-aligned add_travel" action="">
         <fieldset>
             <label><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"></label>
             <div class="pure-control-group">

@@ -62,7 +62,7 @@ def page():
 
     try:
         index_num = int(index_back)
-    except Exception as e:
+    except Exception:
         return jsonify(error=1002, errmsg="缺少参数")
 
     if not name:
@@ -70,7 +70,7 @@ def page():
 
     try:
         users = User.query.filter(User.id_style == "user").all()
-    except Exception as e:
+    except Exception:
         return jsonify(error=1403, errmsg="数据库查询错误")
 
     u_list = []
@@ -102,7 +102,7 @@ def admin_info():
     try:
         admin = User.query.get(admin_id)
         users = User.query.filter(User.id_style == "user").all()
-    except Exception as e:
+    except Exception:
         return jsonify(error=1403, errmsg="数据库查询错误")
 
     if not admin:
@@ -152,7 +152,7 @@ def get_user_info():
 
     try:
         user = User.query.get(user_id)
-    except Exception as e:
+    except Exception:
         return jsonify(error=1400, errmsg="信息查询错误")
 
     data = {
@@ -298,11 +298,10 @@ def add_travel():
             'website': website,
             'place': place,
         }
-
         travel = Travel(**data)
         db.session.add(travel)
         db.session.commit()
-        return redirect('/admin/add_travel')
+        return jsonify(data=travel.to_dict())
 
 
 @admin_blueprint.route('/look_blog', methods=['GET'])

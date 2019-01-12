@@ -83,8 +83,8 @@ function active_tab(index){
   }
   if(index == 3){
     remove_back(index);
-    $('.travel_bolg').show();
-    $('.travel_bolg').siblings().hide();
+    $('.travel_blog').show();
+    $('.travel_blog').siblings().hide();
   }
   if(index == 4){
     remove_back(index);
@@ -187,7 +187,7 @@ function change_pic(){
 
 // 修改用户信息
 function alter_info(){
-  
+
   $("input[name='nick']").val($('.user_nick').text());
 
   $("#person_sign").text($('.user_sign').text());

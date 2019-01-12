@@ -3,11 +3,264 @@
 <head>
     <meta charset="utf-8">
     <title>管理员后台-{{ data.user_name }}</title>
-    <link rel="stylesheet" href="../../static/admin/page.css"/>
-    <script type="text/javascript" src="../../static/jquery.min.js"></script>
-    <script type="text/javascript" src="../../static/jquery.form.min.js">
+    <style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    .wrapper {
+        width: 100%;
+        height: 100%;
+        color: white;
+        background: rgba(0, 0, 0, .5);
+    }
+    .wrapper .title {
+        height: 30px;
+        width: 100%;
+        background: linear-gradient(to bottom, dimgray, #17202A);
+        font-size: 18px;
+        text-indent: 2em;
+        position: fixed;
+    }
 
-    </script>
+    .wrapper .tab {
+        width: 100%;
+        height: 50px;
+        font-size: 20px;
+        top: 30px;
+        position: fixed;
+    }
+
+    .wrapper .tab .tab_ul {
+        width: 100%;
+        height: 50px;
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        background: #17202A;
+        line-height: 50px;
+        text-align: center;
+    }
+
+    .tab_ul .tab_li {
+        width: 100%;
+        height: 50px;
+        display: inline;
+        list-style: none;
+        cursor: pointer;
+    }
+
+    .show_background {
+        background-color: #5e5e5e;
+    }
+
+    .box {
+        position: fixed;
+        top: 80px;
+        background-color: rgba(255, 255, 255, 1);
+        height: 100vh;
+        width: 100%;
+    }
+
+    .left_son_tab {
+        width: 20%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+    }
+
+    .tab_son_ul {
+        height: 126px;
+        width: 100%;
+    }
+
+    .tab_son_ul li {
+        display: block;
+        list-style: none;
+        height: 60px;
+        width: 100%;
+        background: #2E4053;
+        text-align: center;
+        margin-top: 20px;
+        line-height: 60px;
+        border-radius: 15px;
+        box-shadow: 3px 3px 3px 3px #eee;
+    }
+
+    .all_users_ul {
+        height: 500px;
+        width: 100%;
+        display: block;
+        list-style: none;
+        margin-top: 20px;
+        overflow: scroll;
+    }
+
+    .all_users_li, .all_users_li_other {
+        text-align: center;
+        height: 35px;
+        line-height: 35px;
+        font-size: 20px;
+        color: black;
+        border-radius: 5px;
+    }
+
+    .all_users_li:hover, .all_users_li_other:hover {
+        cursor: pointer;
+        font-size: 28px;
+    }
+
+    .all_users_li {
+        background-color: #566573;
+    }
+
+    .all_users_li_other {
+        background-color: #808B96;
+    }
+
+    /*// admin_info_table*/
+    @keyframes tb_move {
+        0% {
+            border-color: #ABB2B9;
+        }
+        15% {
+            border-color: #808B96
+        }
+        30% {
+            border-color: #566573
+        }
+        45% {
+            border-color: #2C3E50
+        }
+        60% {
+            border-color: #273746
+        }
+        75% {
+            border-color: #212F3D
+        }
+        80% {
+            border-color: #1C2833
+        }
+        95% {
+            border-color: #17202A
+        }
+        100% {
+            border-color: black
+        }
+    }
+
+    .right_content {
+        width: 60%;
+        height: auto;
+        position: absolute;
+        right: 20vw;
+    }
+
+    .tb_name, #tb_user {
+        width: 100%;
+        height: 300px;
+        border-style: dashed;
+        animation: tb_move 10s infinite;
+        top: -100px;
+        margin: 30px 0 0 10%;
+        text-align: center;
+        background: #566573;
+    }
+
+    #tb_user tr {
+        width: 100%;
+        height: 60px;
+    }
+
+    #tb_user tr td {
+        width: 100px;
+        height: 60px;
+    }
+
+    #user_pic {
+        border-radius: 50%;
+        height: 200px;
+        width: 150px;
+    }
+
+    .btn_op {
+        opacity: 0.5;
+        font-size: 20px;
+        background: black;
+        color: white;
+    }
+
+    .alter_window .alter_pic_module {
+        width: 20%;
+        height: 400px;
+        background: dimgray;
+        position: absolute;
+        margin: 0 auto;
+        top: 20%;
+        left: 40%;
+    }
+
+    .btn_sure_alter_pic {
+        margin-left: 6em;
+        margin-top: 15px;
+        border-radius: 10px;
+        height: 100px;
+        width: 100%;
+    }
+
+    .info_form {
+        width: 100%;
+        height: auto;
+    }
+
+    .input_css {
+        float: left;
+        height: 40px;
+        width: 180px;
+    }
+
+    .raido_sex {
+        float: left;
+    }
+
+    .person_sign {
+        float: left;
+        width: 180px;
+        height: 100px;
+    }
+
+    .info_module {
+        position: absolute;
+        left: 25%;
+        top: 20%;
+        width: 40%;
+        height: 500px;
+    }
+
+    /*切换TAB显示内容*/
+    .travel_frame {
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: rgba(0, 0, 0, 1);
+    }
+
+    /* frame of travel */
+    .travel_box{
+        position: absolute;
+        top: 80px;
+        width: 100vw;
+        height: auto;
+        background: rgba(255, 255, 255, 1);
+        color: black;
+    }
+    .travel_blog{
+        position: absolute;
+        width: 100vw;
+        background: rgba(255, 255, 255, 1);
+        color: black;
+    }
+    </style>
+    <script type="text/javascript" src="../../static/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/jquery.form.min.js"></script>
     <script type="text/javascript" src="../../static/js/admin_page.js"></script>
 </head>
 <body>
@@ -21,7 +274,9 @@
                 <img src="" alt="logo">
             </li>
             {% for tab in data.tabs %}
-                <li class="tab_li" id="{{ loop.index }}" onclick="active_tab({{ loop.index }})">{{ tab }}</li>
+                <li class="tab_li" id="{{ loop.index }}" onclick="active_tab({{ loop.index }})">
+                    <span>{{ tab }}</span>
+                </li>
             {% endfor %}
         </ul>
     </div>
@@ -43,15 +298,6 @@
             </div>
 
             <div class="right_content">
-                <!-- <svg id="tb_svg">
-                  <linearGradient id="wow" gradientTransform="rotate(45)">
-                    <stop stop-color="red"></stop>
-                    <stop stop-color="green" offset="1"></stop>
-                  </linearGradient>
-                  <rect width="80%" height="300px" style="fill: url(#wow);opacity: 0.5;">
-                </svg> -->
-
-
                 <table id="tb_name" class="tb_name" cellspacing="0" cellpadding="0" border="5"
                        style="stroke: url(#wow);stroke-width: 18px;stroke-dasharray: 10px 5px;">
                     <tr>
@@ -107,13 +353,20 @@
         </div>
 
         <div class="travel_box" style="display: none;">
-            <iframe src="{{ url_for('admin.travel') }}" class="travel_frame"></iframe>
+            <script>
+                $.get("{{ url_for('admin.travel') }}", function(resp){
+                    $('.travel_box').html(resp);
+                });
+            </script>
         </div>
 
-        <div class="travel_bolg" style="display: none">
-            <iframe src="{{ url_for('admin.look_blog') }}" class="travel_frame"></iframe>
+        <div class="travel_blog" style="display: none">
+            <script>
+                $.get("{{ url_for('admin.look_blog') }}", function(resp){
+                    $('.travel_blog').html(resp);
+                });
+            </script>
         </div>
-
     </div>
 
 
@@ -152,8 +405,6 @@
             </div>
         </form>
     </div>
-
-    alter_info_window
 
 </div>
 

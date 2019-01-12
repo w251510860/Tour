@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <title>攻略</title>
     <style>
-        *{padding: 0;margin: 0;}
         .blog_box{
+            position: absolute;
+            top: 80px;
             width: 100%;
+            height: auto;
+            background: rgba(255, 255, 255, 1);
+            z-index: -99;
         }
         .look_box{
             width: 30%;
@@ -35,7 +39,7 @@
         }
         .look_box .font_inner  .font_inner_say{
             margin-top: 30px;
-            animation: say_blink 5s infinite;
+            animation: say_blink 3s infinite;
         }
         @keyframes say_blink {
             0%{     color: navajowhite;    }
@@ -45,28 +49,40 @@
             100%{   color: whitesmoke;    }
         }
         .blog_content{
-            width: 65%;
+            background: whitesmoke;
+            width: 70%;
+            height: auto;
             display: grid;
             grid-template-rows: min-content;
             position: absolute;
             right: 0;
             top: 0;
         }
+        .blog_opearate{
+            margin-left: 50%;
+        }
+        .blog_opearate a{
+            font-size: 18px;
+            margin-right: 10px;
+            color: #2E86C1;
+        }
         .blog_content div{
             margin-top: 20px;
             margin-bottom: 80px;
+            margin-left: 5%;
         }
-        .title{
-            font-style: oblique;
+        .blog_title{
+            color: black;
         }
         .article{
             margin-top: 10px;
             text-indent: 2em;
             font-size: 20px;
+            color: black;
         }
     </style>
 </head>
-<body style="background: whitesmoke;">
+<body>
 <div class="blog_box">
     <div class="look_box">
         <div class="font_inner">
@@ -80,12 +96,17 @@
             <div class="content">
                 <label style="font-size: 16px;margin: 0;font-style: italic;color: darkgray;">
                     {{ index['create_time'] }}
+                    <span class="blog_opearate">
+                        <a href="#">删除</a>
+                        <a href="#">修改</a>
+                    </span>
                 </label>
+
                 <hr style="border: 1px solid lightgray;margin-bottom: 20px;"/>
-                <h2 class="title">
-                    {{ index['name'] }}
-                </h2><br/>
-                <span style="color: gray">By {{ index['user']['nick_name'] }}</span>
+                <h2 class="blog_title">
+                    {{ index['title'] }}
+                </h2>
+                <span style="color: gray; font-style: italic;">By {{ index['user']['nick_name'] }}</span>
                 <p class="article">
                 {{ index['content'] }}
                 </p>

@@ -12,27 +12,67 @@
         }
 
         .t_box {
-            background: whitesmoke;
             height: 100vh;
         }
-
+        .left_nav{
+            position: absolute;
+            top: 10px;
+            left: 1%;
+        }
         .left_nav p {
             padding: 20px 30px 20px 30px;
             border: 1px solid gray;
             width: 10vw;
             text-align: center;
         }
+        .left_nav .active{
+            color: black;
+            background-color: lightgray;
+            font-weight: 400;
+        }
+        .left_nav p:hover{
+            color: white;
+            font-style: italic;
+            background-color: #2E4053;
+            font-weight: 400;
+            font-size: 20px;
+        }
+        .travel-table{
+            position: absolute;
+            top: 15px;
+            left: 22vw;
+            width: 70vw;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+        }
     </style>
+    <script>
+        function show_tab(index){
+            if (index === 1){
+                $('.travel-table').show();
+                $('.add_btn').hide();
+                $('.p_one').addClass('active');
+                $('.p_two').removeClass('active');
+            }
+            if(index === 2){
+                $('.add_btn').show();
+                $('.travel-table').hide();
+                $('.p_one').removeClass('active');
+                $('.p_two').addClass('active');
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="t_box">
     <div class="left_nav">
-        <p>旅游景点列表</p>
-        <p>添加旅游景点</p>
+        <p onclick="show_tab(1)" class="p_one">旅游景点列表</p>
+        <p onclick="show_tab(2)" class="p_two">添加旅游景点</p>
     </div>
     <div class="right_box">
-        
-        <table class="pure-table pure-table-horizontal">
+        <table class="pure-table pure-table-horizontal travel-table">
             <thead>
                 <tr>
                     <th>景点名称</th>
@@ -41,23 +81,28 @@
                     <th>建议游玩时间</th>
                     <th>联系方式</th>
                     <th>价格</th>
+                    <th>操作</th>
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody class="travel_list">
                 {% for t in data.travel %}
-                    <tr>
+                    <tr >
                         <td>{{ t.name }}</td>
-                        <td>{{ t.website }}</td>
+                        <td><a href="">{{ t.website }}</a></td>
                         <td>{{ t.open_time }}</td>
                         <td>{{ t.advice_time }}</td>
                         <td>{{ t.phone }}</td>
-                        <td>{{ t.price }}</td>
+                        <td>￥{{ t.price }}</td>
+                        <td><a href="">操作</a></td>
                     </tr>
                 {% endfor %}
 
             </tbody>
         </table>
+        <div class="add_btn" style="display: none;">
+            {% include 'admin/add_travel.html' %}
+        </div>
     </div>
 </div>
 </body>
