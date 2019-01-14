@@ -251,6 +251,7 @@
         height: auto;
         background: rgba(255, 255, 255, 1);
         color: black;
+        z-index: -999;
     }
     .travel_blog{
         position: absolute;
@@ -262,11 +263,23 @@
     <script type="text/javascript" src="../../static/jquery.min.js"></script>
     <script type="text/javascript" src="../../static/jquery.form.min.js"></script>
     <script type="text/javascript" src="../../static/js/admin_page.js"></script>
+    
 </head>
 <body>
+    {% if type%}
+    <script type="text/javascript">
+        $(function(){
+            var index = $("input[name='index']").val();
+            active_tab(index);
+        })
+    </script>
+    <label><input type="hidden" name="index" value="{{ type }}"></label>
+
+    {% endif %}
 <div class="wrapper" data-id="{{ data.user_id }}" data-back="{{ data.index_back }}">
     <div class="title">
         欢迎登录管理后台...
+
     </div>
     <div class="tab">
         <ul class="tab_ul">
@@ -304,7 +317,13 @@
                         <td>昵称：</td>
                         <td class="td_name"></td>
                         <td>头像：</td>
-                        <td class="td_pic"><img src="" alt="管理员头像" height="200px" width="150px" class="img_pic"/></td>
+                        {% if data.pic_url %}
+                        <td class="td_pic"><img src="{{ data.pic_url }}" alt="管理员头像" height="200px" width="150px" class="img_pic"/></td>
+                        {% else %}
+                        <td class="td_pic">
+                            无上传头像
+                        </td>
+                        {% endif %}
 
                     </tr>
                     <tr>
@@ -434,7 +453,6 @@
                     <td>
                         <span class="raido_sex"><label><input type="radio" name="sex_info" value="man">男</label></span>
                         <span class="raido_sex" style="margin-left: 2em;"><label><input type="radio" name="sex_info"
-                                                                                        value="woman">女</label></span>
                     </td>
                 </tr>
                 <tr>

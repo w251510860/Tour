@@ -51,9 +51,9 @@ def login():
     return jsonify(error=200, errmsg="登录成功", back=index_back, style=user_style)
 
 
-@admin_blueprint.route("/page", methods=["GET"])
+@admin_blueprint.route("/page/<int:type>", methods=["GET"])
 @save_pic
-def page():
+def page(type):
     name = session.get('nick_name')
 
     user_id = session.get("user_id")
@@ -78,8 +78,6 @@ def page():
         for u in [user for user in users]:
             u_list.append(u.to_user_dict())
 
-    print(index_num)
-
     data = {
         "user_id": user_id,
         "user_name": name,
@@ -88,7 +86,7 @@ def page():
         "users": u_list if users else None,
     }
 
-    return render_template("admin/admin_page.html", data=data)
+    return render_template("admin/admin_page.html", data=data, type=type)
 
 
 @admin_blueprint.route("/get_admin_info", methods=["GET"])
@@ -130,14 +128,14 @@ def logout():
 
     try:
         admin = User.query.get(user_id)
-    except Exception as e:
+    except Exception:
         return jsonify(error=1420, errmsg="查询错误")
 
     admin.last_login = datetime.datetime.now()
 
     try:
         db.session.commit()
-    except Exception as e:
+    except Exception:
         return jsonify(error=1410, errmsg="错误")
 
     return redirect(url_for("admin.index"))
@@ -168,8 +166,6 @@ def alter_pic():
 
     file_pic = request.files.get("pic_url")
 
-    print(user_id, type(file_pic))
-
     if not all([user_id, file_pic]):
         return jsonify(error=1004, errmsg="参数错误")
 
@@ -198,7 +194,7 @@ def alter_pic():
     if not user:
         return jsonify(error=1004, errmsg="用户信息为空")
 
-    user.pic_url = "../static/user_head_pic/user{}.jpg".format(time_now)
+    user.pic_url = "../../static/user_head_pic/user{}.jpg".format(time_now)
 
     try:
         db.session.commit()
@@ -271,6 +267,19 @@ def travel():
         return render_template('admin/travel.html', data=data)
 
 
+@admin_blueprint.route('/travel/<int:pk>', methods=['GET'])
+def travel_pk(pk):
+    if request.method == 'GET':
+
+        try:
+            travel_obj = Travel.query.get(pk)
+        except Exception:
+            return jsonify(status=404, data={'msg': '该旅游信息不存在'})
+
+        return render_template('admin/add_travel.html',
+                               data=travel_obj.to_dict())
+
+
 @admin_blueprint.route("/add_travel", methods=['GET', 'POST'])
 def add_travel():
 
@@ -304,6 +313,53 @@ def add_travel():
         return jsonify(data=travel.to_dict())
 
 
+@admin_blueprint.route('/delete_travel/<int:pk>', methods=['GET'])
+def delete_travel(pk):
+    try:
+        t = Travel.query.get(pk)
+    except Exception:
+        return jsonify(status=400, data={'msg': '信息已不存在'})
+    try:
+
+        db.session.delete(t)
+        db.session.commit()
+    except Exception:
+        return jsonify(status=400, data={'msg': '删除失败'})
+
+    return redirect(url_for("admin.page", type=2))
+
+
+@admin_blueprint.route('/update_travel/<int:pk>', methods=['POST'])
+def update_tavel(pk):
+    name = request.form.get('name')
+    pic_link = request.form.get('pic_link')
+    open_time = request.form.get('open_time')
+    advice_time = request.form.get('advice_time')
+    phone = request.form.get('phone')
+    price = request.form.get('price')
+    website = request.form.get('website')
+    place = request.form.get('place')
+
+    data = {
+        'name': name,
+        'pic_link': pic_link,
+        'open_time': open_time,
+        'advice_time': advice_time,
+        'phone': phone,
+        'price': price,
+        'website': website,
+        'place': place,
+    }
+
+    travel_num = Travel.query.filter_by(id=pk).update(data)
+    if not travel_num:
+        return jsonify(data={'msg': '更新错误'}, status=400)
+
+    db.session.commit()
+
+    return jsonify({})
+
+
 @admin_blueprint.route('/look_blog', methods=['GET'])
 def look_blog():
 
@@ -314,3 +370,35 @@ def look_blog():
     }
 
     return render_template('admin/look_blog.html', data=data)
+
+
+@admin_blueprint.route('/delete_blog/<int:pk>', methods=['GET'])
+def delete_blog(pk):
+    try:
+        b = Blog.query.get(pk)
+    except Exception:
+        return jsonify(status=200, data={'msg': '已删除'})
+
+    try:
+        db.session.delete(b)
+        db.session.commit()
+    except Exception:
+        return jsonify(status=400, data={'msg': '删除失败'})
+
+    return redirect(url_for('admin.page', type=3))
+
+
+@admin_blueprint.route('/update_blog/<int:pk>', methods=['POST'])
+def update_blog(pk):
+    t = Blog.query.get(pk)
+    title = request.form.get('title')
+    cnt = request.form.get('content')
+
+    if not t:
+        return jsonify(status=400, data={'msg': '信息已不存在'})
+
+    t.title = title
+    t.content = cnt
+
+    db.session.commit()
+    return jsonify(status=200)

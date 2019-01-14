@@ -23,7 +23,7 @@ $(function(){
 
                 if(resp.error==200){
                     if(resp.style == 'admin'){
-                        window.location.href = "/admin/page?index=" + (resp.back - 1);
+                        window.location.href = "/admin/page/1?index=" + (resp.back - 1);
                     }else{
                         window.location.href = '/';
                     }

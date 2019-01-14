@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>攻略</title>
+
     <style>
         .blog_box{
             position: absolute;
@@ -80,7 +81,67 @@
             font-size: 20px;
             color: black;
         }
+
+        .content > button{
+            width: 100px;
+            height: 30px;
+            font-size: 18px;
+        }
+
+        /*update info of blog*/
+        /*.update_blog{
+            position: fixed;
+            width: 100%;
+            heigth: calc(100% - 80px);
+            background: white;
+            top: 80px;
+        }*/
+
     </style>
+
+    <script>
+        function update_blog_now(id){
+            var cnt = $('input[name="title"]').val();
+
+            var cn = $('.acontent-'+id).val();
+            var c = $('input[name="csrf_token"]').val();
+
+            var params = {
+                'title': cnt,
+                'content': cn,
+                'csrf_token': c
+            }
+            $.ajax({
+                url: '/admin/update_blog/' + id,
+                data: params,
+                type: 'post',
+                success: function(resp){
+                    window.location.href = '/admin/page/3';
+                }
+            })
+        }
+        function update_mode_show(id, type){
+            var cnt = $('.title-' + id).text();
+            cnt = $.trim(cnt);
+
+            var cn = $('.content-' + id).text();
+            cn = $.trim(cn);
+            if (type == 'u'){
+                
+                $('.title-' + id).html('<input type="text" name="title" value="'+cnt+'">');
+                $('.content-' + id).html('<textarea class="acontent-'+id+'" name="content" id="" cols="70" rows="10">'+cn+'</textarea>');
+                $('.btn_update-' + id).css('display', 'inline-block');
+                $('.btn_cancel_update-' + id).css('display', 'inline-block');
+            }
+            else{
+                $('.title-' + id).text(cnt);
+                $('.content-' + id).text(cn);
+                $('.btn_update-' + id).css('display', 'none');
+                $('.btn_cancel_update-' + id).css('display', 'none');
+            }
+
+        }
+    </script>
 </head>
 <body>
 <div class="blog_box">
@@ -92,28 +153,50 @@
         </div>
     </div>
     <div class="blog_content" >
+        <label><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"></label>
         {% for index in data.blog %}
             <div class="content">
                 <label style="font-size: 16px;margin: 0;font-style: italic;color: darkgray;">
                     {{ index['create_time'] }}
                     <span class="blog_opearate">
-                        <a href="#">删除</a>
-                        <a href="#">修改</a>
+                        <a href="/admin/delete_blog/{{ index['id'] }}">删除</a>
+                        <a href="javascript:void(0)" onclick="update_mode_show({{ index['id'] }}, 'u')">修改</a>
                     </span>
                 </label>
 
                 <hr style="border: 1px solid lightgray;margin-bottom: 20px;"/>
-                <h2 class="blog_title">
+                <h2 class="blog_title title-{{ index['id'] }}">
                     {{ index['title'] }}
                 </h2>
                 <span style="color: gray; font-style: italic;">By {{ index['user']['nick_name'] }}</span>
-                <p class="article">
+                <p class="article content-{{ index['id'] }}" >
                 {{ index['content'] }}
                 </p>
+                <button onclick="update_blog_now({{ index['id'] }})" class="btn_update-{{ index['id'] }}" style="display: none">更新数据</button>
+
+                <button class="btn_cancel_update-{{ index['id'] }}" style="display: none" onclick="update_mode_show({{ index['id'] }}, 'uu')">返回</button>
             </div>
         {% endfor %}
 
     </div>
 </div>
+
+<!-- <div class="update_blog">
+    <div class="blog_spane">
+        <form action="#" class="blog_form" id="blog_form_id" method="POST">
+            <label for=""><input type="text" name="" value=""></label>
+            <label for=""><input type="text" name="" value=""></label>
+            <label for=""><input type="text" name="" value=""></label>
+            <label for=""><input type="text" name="" value=""></label>
+            <label for=""><input type="text" name="" value=""></label>
+            <label for=""><input type="text" name="" value=""></label>
+        </form>
+    </div>
+</div> -->
+
+<!-- <div class="hide_blog_logo">
+    <b>X</b>
+</div> -->
+
 </body>
 </html>

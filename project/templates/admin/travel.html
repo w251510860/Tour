@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>景点页面</title>
+    <link rel="stylesheet" href="../../static/admin/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
       integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
     <style>
@@ -13,6 +14,7 @@
 
         .t_box {
             height: 100vh;
+            z-index: -999;
         }
         .left_nav{
             position: absolute;
@@ -47,8 +49,88 @@
             text-decoration: none;
             color: black;
         }
+        .travel_list tr td a:last-child{
+            margin-left: 20px;
+            transition: 0.4s;
+        }
+        .travel_list tr td a:first-child{
+            transition: 0.4s;
+        }
+
+        .popup_travel_box{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            display: none;
+            top: 80px;
+            background: white;
+        }
+        .popup_travel_box:target {
+            display: block;
+        }
+        .popup_travel_box:target + .hide_logo{
+            display: block;
+        }
+        .hide_logo{
+            position: fixed;
+            height: 50px;
+            width: 50px;
+            top: 100px;
+            right: 350px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 50px;
+            background: black;
+            color: white;
+            display: none;
+        }
+        .hide_logo b{
+            font-size: 30px;
+        }
+
+        .delete_popup{
+            display: none;
+            position: fixed;
+            top: 80px;
+            background: white;
+            width: 100%;
+            height: 100%;
+        }
+        .op_btn{
+            position: absolute;
+            top: 50%;
+            left: 1%;
+            width: 100%;
+            height: 40%;
+            text-align: center;
+        }
+        .op_btn a:first-child{
+            margin-right: 35px;
+            margin-left: -10px;
+            height: 30px;
+            width: 60px;
+            border: 1px solid gray;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .op_btn a:last-child{
+            margin-left: 30px;
+            height: 30px;
+            width: 60px;
+            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid gray;
+        }
+
+        .delete_popup:target {
+            display: block;
+        }  
     </style>
     <script>
+        function hide_delete(){
+            $('.hide_logo').css('display', 'none');
+            $('.delete_popup').css('display', 'none');
+        }
         function show_tab(index){
             if (index === 1){
                 $('.travel-table').show();
@@ -63,10 +145,24 @@
                 $('.p_two').addClass('active');
             }
         }
+        function pk_travel(id){
+            $.get('/admin/travel/' + id, function(resp){
+                if(resp.status == 404){
+                    alert(resp.data.msg);
+                    $('#popup_travel').hide();
+                }else{
+                    $('.popup_travel_box').html(resp);
+                }
+            });
+        }
+
+        function get_deleted_id(id){
+            $('.sure_btn').prop('href', '/admin/delete_travel/' + id)
+        }
     </script>
 </head>
 <body>
-<div class="t_box">
+<div class="t_box" id="t_box">
     <div class="left_nav">
         <p onclick="show_tab(1)" class="p_one">旅游景点列表</p>
         <p onclick="show_tab(2)" class="p_two">添加旅游景点</p>
@@ -94,16 +190,49 @@
                         <td>{{ t.advice_time }}</td>
                         <td>{{ t.phone }}</td>
                         <td>￥{{ t.price }}</td>
-                        <td><a href="">操作</a></td>
+                        <td>
+                            <a class="update_btn" href="#popup_travel" onclick="pk_travel({{ t.id }})">
+                                <i class="fas fa-pen-square"></i>
+                            </a>
+                            <a href="#delete_popup" onclick="get_deleted_id({{ t.id }})"><i class="fas fa-trash-alt"></i></a>
+                        </td>
                     </tr>
                 {% endfor %}
 
             </tbody>
         </table>
-        <div class="add_btn" style="display: none;">
-            {% include 'admin/add_travel.html' %}
+        
+    </div>
+</div>
+<div class="add_btn" style="display: none;">
+    {% include 'admin/add_travel.html' %}
+</div>
+
+<div class="popup_travel_box" id="popup_travel">
+    <!-- {% include 'admin/add_travel.html' %} -->
+</div>
+<a href="#" class="hide_logo">
+    <b>X</b>
+</a>
+
+
+<div class="delete_popup" id="delete_popup">
+    <div style="position: relative;width: 45%;height: 45%;top: 20%; left: 25%;">
+        <section style="width: 100%;height: 40%; text-align: center;font-size: 30px;position: absolute;">
+            是否删除?
+        </section>
+        <div class="op_btn">
+            <a class="return_btn" href="#" >
+                返回
+            </a>
+            <a class="sure_btn">
+                确定
+            </a>
         </div>
     </div>
 </div>
+
+
+
 </body>
 </html>
