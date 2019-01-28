@@ -48,16 +48,20 @@ def register():
     username = request.form.get('username')
     password = request.form.get('password')
     password2 = request.form.get('password2')
+    phone_num = request.form.get('phone_num')
+    print(f'username -> {username}')
     if password != password2:
         return jsonify(errmsg='两次密码不一致')
     try:
         User.nick_name = username
         User.password = password
+        User.phone_num = phone_num
         db.session.commit()
     except Exception as e:
         current_app.log.error(e)
         return jsonify(error=5001, errmsg='注册失败，请重试')
-    return redirect(url_for('login'))
+    # return redirect(url_for('login'))
+    return jsonify('注册成功', 200)
 
 
 @user_blueprint.errorhandler(404)

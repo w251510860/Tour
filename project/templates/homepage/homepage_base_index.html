@@ -12,14 +12,14 @@
 
     <meta content="宜居之城-信阳" name="description"/>
     {% block link %}
-        <link href="../../static/homepage/css/base.css" rel="stylesheet" type="text/css">
+        <link href="../../static/css/base.css" rel="stylesheet" type="text/css">
 
-        <link href="../../static/homepage/css/pagename.css" rel="stylesheet" type="text/css">
+        <link href="../../static/css/pagename.css" rel="stylesheet" type="text/css">
     {% endblock %}
     {% block script %}
         <script type="text/javascript" src="../../static/homepage/js/jquery-1.6.2.min.js"></script>
-        <script type="text/javascript" src="../../static/homepage/js/homepage.js"></script>
         <script type="text/javascript" src="../../static/homepage/js/jquery.SuperSlide.2.1.js"></script>
+        <script type="text/javascript" src="../../static/js/homepage.js"></script>
     {% endblock %}
 </head>
 
@@ -398,23 +398,23 @@
         <div class="flrg-1">
             <h2 class="regist_title">注册</h2>
             <div class="a">
-                <input type="text" id="username" class="in-1" placeholder="您的用户名">
+                <input type="text" name="username" class="in-1" placeholder="您的用户名">
             </div>
             <div class="a">
-                <input type="password" id="password" class="in-1" placeholder="输入密码">
+                <input type="password" name="password" class="in-1" placeholder="输入密码">
             </div>
             <div class="a">
-                <input type="password" id="re-password" class="in-1" placeholder="再次确认密码">
+                <input type="password" name="password2" class="in-1" placeholder="再次确认密码">
             </div>
             <div class="a">
-                <input type="text" id="telephone-number" class="in-1" placeholder="输入手机号码">
+                <input type="text" name="phone_num" class="in-1" placeholder="输入手机号码">
             </div>
-            <div class="a">
-                <input type="email" id="e-mail" class="in-1" placeholder="输入邮箱地址">
-            </div>
+{#            <div class="a">#}
+{#                <input type="email" name="e-mail" class="in-1" placeholder="输入邮箱地址">#}
+{#            </div>#}
             <div class="a">
                 <br>
-                <button class="regist_button" type="submit" value="Submit">注册</button>
+                <button class="bt_register" type="submit" value="Submit">注册</button>
             </div>
         </div>
     </form>

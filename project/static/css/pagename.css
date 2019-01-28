@@ -54,7 +54,7 @@ body {
 .header_bottom {
     height: 72px;
     padding-top: 26px;
-    background-image: url(../images/loo.png);
+    background-image: url(../homepage/images/loo.png);
     background-repeat: no-repeat;
     background-position: 800px 4px;
 }
@@ -168,7 +168,7 @@ body {
 
 .p_tit1 {
     text-align: center;
-    background: url(../images/bg_tit.jpg) no-repeat left bottom;
+    background: url(../homepage/images/bg_tit.jpg) no-repeat left bottom;
     height: 60px;
     line-height: 76px;
     color: #0f8f3a;
@@ -285,7 +285,7 @@ body {
 
 .feilei {
     height: 210px;
-    background: url(../images/fl_bg.jpg) no-repeat 108px 76px #fff;
+    background: url(../homepage/images/fl_bg.jpg) no-repeat 108px 76px #fff;
     position: relative;
 }
 
@@ -397,7 +397,7 @@ body {
     height: 37px;
     line-height: 37px;
     font-size: 14px;
-    background: url(../images/ico_3.jpg) no-repeat 4px center;
+    background: url(../homepage/images/ico_3.jpg) no-repeat 4px center;
     padding-left: 20px;
 }
 
@@ -419,7 +419,7 @@ body {
     border: none;
     line-height: 24px;
     height: 24px;
-    background: url(../images/ico_4.jpg) 10px center no-repeat;
+    background: url(../homepage/images/ico_4.jpg) 10px center no-repeat;
     margin-bottom: 2px;
     font-size: 13px;
     padding-left: 0px;
@@ -502,7 +502,7 @@ body {
 .ul_news li {
     line-height: 42px;
     height: 42px;
-    background: url(../images/ico_2.jpg) left center no-repeat;
+    background: url(../homepage/images/ico_2.jpg) left center no-repeat;
     padding-left: 15px;
 }
 
@@ -686,7 +686,7 @@ body {
     margin-right: 5px;
     text-indent: -999px;
     cursor: pointer;
-    background: url("../images/icoCircle.gif") 0 -9px no-repeat;
+    background: url("../homepage/images/icoCircle.gif") 0 -9px no-repeat;
 }
 
 .picScroll-left .hd ul li.on {

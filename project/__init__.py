@@ -45,7 +45,7 @@ def create_app(config_name):
     app.add_template_filter(filter_customer.filter_input_type)
     app.add_template_filter(filter_customer.filter_user_css)
 
-    CSRFProtect(app)
+    # CSRFProtect(app)
 
     Session(app)
 
