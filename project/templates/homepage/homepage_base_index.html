@@ -21,13 +21,6 @@
         <script type="text/javascript" src="../../static/homepage/js/homepage.js"></script>
         <script type="text/javascript" src="../../static/homepage/js/jquery.SuperSlide.2.1.js"></script>
     {% endblock %}
-<style>
-.login_form {
-	position:fixed;
-	top:30px;
-	right:5px;
-}
-</style>
 </head>
 
 
@@ -376,27 +369,56 @@
 <!--注册表单 开始 -->
 <!--注册表单 结束 -->
 <!--登陆 开始 -->
-<form class="login_form_con">
-        <div class="login_form">
-            <div class="login_title">
-                <h3>登 录</h3>
-                <a href="javascript:;" class="shutoff"></a>
+<div class="box-2 le-1">
+    <form id="login" action="" method="post">
+        <div class="flrg">
+                <h3>登录</h3>
+            <div class="a">
+                <!--<label>账号：</label>-->
+                <input type="text" class="in-1" placeholder="请输入账号">
             </div>
-            <div class="form_group">
-                <input id="mobile" type="text" name="mobile" autocomplete="off">
-                <div class="input_tip">手机号</div>
-                <div id="login-mobile-err" class="error_tip">手机号不能为空</div>
+            <div class="a">
+                <!--<label>密码：</label>-->
+                <input type="password" class="in-1" placeholder="请输入密码">
             </div>
-            <div class="form_group">
-                <input id="password" type="password" name="password">
-                <div class="input_tip">密码(不少于6位)</div>
-                <div id="login-password-err" class="error_tip">密码不能为空</div>
+            <div class="a">
+                <button type="button">登录</button>
             </div>
-            <input type="submit" name="" value="登 录" class="input_sub">
-            <div class="down_link">还没有账号？<a href="javascript:;" class="to_register">立即注册</a></div>
+            <div class="a">
+                <div class="hr"></div>
+            </div>
+            <div class="a">
+                <a href="#">忘记密码？</a>
+            </div>
         </div>
-        <div class="mask"></div>
     </form>
+</div>
+<div class="box-2 le-2">
+    <form  id="regist" action="" method="post">
+        <div class="flrg-1">
+            <h2 class="regist_title">注册</h2>
+            <div class="a">
+                <input type="text" id="username" class="in-1" placeholder="您的用户名">
+            </div>
+            <div class="a">
+                <input type="password" id="password" class="in-1" placeholder="输入密码">
+            </div>
+            <div class="a">
+                <input type="password" id="re-password" class="in-1" placeholder="再次确认密码">
+            </div>
+            <div class="a">
+                <input type="text" id="telephone-number" class="in-1" placeholder="输入手机号码">
+            </div>
+            <div class="a">
+                <input type="email" id="e-mail" class="in-1" placeholder="输入邮箱地址">
+            </div>
+            <div class="a">
+                <br>
+                <button class="regist_button" type="submit" value="Submit">注册</button>
+            </div>
+        </div>
+    </form>
+</div>
 <!--登陆 结束 -->
 </body>
 
