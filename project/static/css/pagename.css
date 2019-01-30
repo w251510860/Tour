@@ -777,12 +777,19 @@ body {
     font-size: 25px;
 }
 
+.login_title {
+    margin-left: auto;
+    margin-top: 20px;
+    font-size: 25px;
+}
+
 .box-1 {
     display: none;
     width: 50%;
-    height: 900px;
-    float: left;
+    position: fixed;
     overflow: hidden;
+    top: 25%;
+    right: 39%;
 }
 
 .box-2 {
@@ -824,10 +831,8 @@ body {
 }
 
 .le-1 {
-    position: relative;
-    -webkit-animation: myflrg 10s;
-    -o-animation: myflrg 10s;
-    animation: myflrg 6s;
+    overflow: hidden;
+    height: 73%;
 }
 
 .le-2 {
@@ -838,7 +843,7 @@ body {
 .flrg {
     float: right;
     width: 300px;
-    background: rgba(255, 255, 255, .6);
+    background: rgba(255, 255, 255, .9);
     text-align: center;
     padding-bottom: 40px;
     -webkit-border-radius: 4px;

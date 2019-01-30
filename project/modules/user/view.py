@@ -61,7 +61,7 @@ def register():
         current_app.log.error(e)
         return jsonify(error=5001, errmsg='注册失败，请重试')
     # return redirect(url_for('login'))
-    return jsonify('注册成功', 200)
+    return jsonify('注册成功', 201)
 
 
 @user_blueprint.errorhandler(404)
