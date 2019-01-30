@@ -778,6 +778,7 @@ body {
 }
 
 .box-1 {
+    display: none;
     width: 50%;
     height: 900px;
     float: left;
@@ -785,6 +786,7 @@ body {
 }
 
 .box-2 {
+    display: none;
     width: 50%;
     position: fixed;
     float: left;

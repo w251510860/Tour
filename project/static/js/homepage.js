@@ -1,20 +1,3 @@
-// $(function() {
-//   $('.bt_register').click(function() {
-//     $.ajax({
-//         url : '/user/register',
-//         type : 'POST',
-//         data : $('form').serialize(),         //序列化表单输入，选择内容
-//         headers:{
-//                 "X-CSRF-Token": getCookie('csrf_token')
-//             },
-//         success : function (resp) {
-//             alert(resp);
-//         }
-//     });
-//   });
-// });
-//
-
 $(function () {
     $("#regist").submit(function (e) {
         e.preventDefault();
@@ -26,5 +9,24 @@ $(function () {
                 alert(resp)
             }
         })
-    })
-})
+    });
+
+    // 注册按钮点击事件
+    $(".register_btn").click(function () {
+        if($(".box-2").css("display") == "none"){
+				$(".box-2").show();
+			}else{
+				$(".box-2").hide();
+			}
+    });
+
+    // 登录按钮点击事件
+    $(".login_btn").click(function () {
+        if($(".box-1").css("display") == "none"){
+				$(".box-1").show();
+			}else{
+				$(".box-1").hide();
+			}
+    });
+
+});
