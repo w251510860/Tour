@@ -21,7 +21,11 @@ $(function () {
             type: "POST",
             data: $('#login').serialize(),
             success: function (resp) {
-                alert(resp)
+                if (resp.errno == "200"){
+                   alert(resp)
+                }
+                location.reload();
+
             }
         })
 

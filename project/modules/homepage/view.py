@@ -1,11 +1,20 @@
-from flask import render_template, request, jsonify, current_app
+from flask import render_template, request, jsonify, current_app, session
 
+from project.modules.models import User
 from . import homepage_blueprint
 
 
 @homepage_blueprint.route("", methods=["GET"])
 def homepage():
-    return render_template("homepage/homepage_base_index.html", methods=["GET"])
+    user_id = session.get('user_id')
+    user = None
+    if user_id:
+        try:
+            user = User.query.get(user_id)
+        except Exception as e:
+            current_app.logger.error(e)
+    print(user.to_user_dict())
+    return render_template("homepage/homepage_base_index.html", data={'user_info': user.to_user_dict() if user else None})
 
 
 @homepage_blueprint.route("/history", methods=["GET"])

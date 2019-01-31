@@ -20,10 +20,11 @@ def login():
         return jsonify(error=4005, errmsg='用户名或密码错误')
     session['username'] = username
     session['user_id'] = user.id
-    data = {
-        'user': user.to_user_dict() if user else None
-    }
-    return render_template('homepage/homepage_base_index.html', data=data)
+    print(f'user.id -> {user.id}')
+    # data = {
+    #     'user': user.to_user_dict() if user else None
+    # }
+    return jsonify('登录成功', 200)
 
 
 @user_blueprint.route('/logout', methods=['get'])

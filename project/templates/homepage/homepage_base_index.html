@@ -34,8 +34,8 @@
     <div class="w1000">
 
         <p>你好，欢迎光临宜居之城信阳！</p>
-        {% if data %}
-            <div class="contact"><a href="javascript:;" class="login_btn" >{{ data.nick_name }}</a> <a href="javascript:;" class="register_btn">退出</a></div>
+        {% if data.user_info %}
+            <div class="contact"><a href="javascript:;" class="user_name" >{{ data.user_info.nick_name }}</a> <a href="javascript:;" class="logout">退出</a></div>
         {% else %}
             <div class="contact"><a href="javascript:;" class="login_btn" >用户登陆</a> <a href="javascript:;" class="register_btn">注册</a></div>
         {% endif %}
