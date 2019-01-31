@@ -373,6 +373,7 @@
 <!--登陆 开始 -->
 <div class="box-1 le-1">
     <form id="login" action="" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="flrg">
                 <h3 class="login_title">登录</h3>
             <div class="a">
@@ -397,6 +398,7 @@
 </div>
 <div class="box-2 le-2">
     <form  id="regist" action="" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="flrg-1">
             <h2 class="regist_title">注册</h2>
             <div class="a">

@@ -7,6 +7,9 @@ $(function () {
             url: "/user/register",
             type: "POST",
             data: $('#regist').serialize(),
+            // headers: {
+            //     "X-CSRFToken": getCookie("csrf_token")
+            // },
             success: function (resp) {
                 alert(resp)
             }
@@ -20,9 +23,12 @@ $(function () {
             url: "/user/login",
             type: "POST",
             data: $('#login').serialize(),
+            // headers: {
+            //     "X-CSRFToken": getCookie("csrf_token")
+            // },
             success: function (resp) {
-                if (resp.errno == "200"){
-                   alert(resp)
+                if (resp.errno == "200") {
+                    alert(resp)
                 }
                 location.reload();
 
@@ -55,5 +61,20 @@ $(function () {
             $(".box-1").hide();
         }
     });
+
+    // 登出
+    $(".logout").click(function () {
+        $.ajax({
+            url: "/user/logout",
+            type: "get",
+            // headers: {
+            //     "X-CSRFToken": getCookie("csrf_token")
+            // },
+            success: function (resp) {
+                location.reload()
+            }
+        });
+        alert('登出成功')
+    })
 
 });

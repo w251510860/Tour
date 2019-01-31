@@ -13,7 +13,6 @@ def homepage():
             user = User.query.get(user_id)
         except Exception as e:
             current_app.logger.error(e)
-    print(user.to_user_dict())
     return render_template("homepage/homepage_base_index.html", data={'user_info': user.to_user_dict() if user else None})
 
 

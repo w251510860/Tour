@@ -20,7 +20,6 @@ def login():
         return jsonify(error=4005, errmsg='用户名或密码错误')
     session['username'] = username
     session['user_id'] = user.id
-    print(f'user.id -> {user.id}')
     # data = {
     #     'user': user.to_user_dict() if user else None
     # }
@@ -38,13 +37,7 @@ def logout():
     except Exception as e:
         current_app.log.error(e)
         return jsonify(error=4006, errmsg='未查到用户，退出失败')
-    try:
-        user.last_login = time.time()
-        db.session.commit()
-    except Exception as e:
-        current_app.log.error(e)
-        return jsonify(error=4006, errmsg='更新用户最后登录时间失败')
-    return redirect(url_for('index'))
+    return jsonify('退出账户成功', 204)
 
 
 @user_blueprint.route('/register', methods=['post'])
