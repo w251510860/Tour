@@ -11,6 +11,7 @@ table {}
 fieldset, img { border:0; }
 
 address, caption, cite, code, dfn, strong, th, var, optgroup { font-style:inherit; font-weight:inherit; }
+a { cursor:pointer}
 
 em{ font-style:normal;}
 

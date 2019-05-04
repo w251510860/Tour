@@ -32,12 +32,12 @@
                     <ul class="ul_left">
 
 
-                        <li><h3><a href="new.html">旅游动态</a></h3>
+                        <li><h3><a href="#">旅游动态</a></h3>
 
                         </li>
 
 
-                        <li><h3><a href="../../static/homepage/template/newest.html">旅游公告</a></h3>
+                        <li><h3><a href="#">待扩展...</a></h3>
 
                         </li>
 
@@ -51,17 +51,19 @@
 
                     <h1>联系方式</h1>
 
-                    <p>地址：XXXXX</p>
+                    <p>地址：河南省信阳市平桥区羊山街道信阳农林学院</p>
 
-                    <p>联系人：XXXX</p>
+                    <p>联系人：刘敏</p>
 
-                    <p>电话：0771-xxxxxxx</p>
+                    <p>学号：151413203</p>
 
-                    <p>QQ：951XXX395</p>
+                    <p>电话：+86 17739571362</p>
 
-                    <p>网址：www.XXXcom</p>
+                    <p>QQ：1620183385</p>
 
-                    <p>邮编：530001</p>
+                    <p>网址：www.liumin.com</p>
+
+                    <p>邮编：464000</p>
 
                 </div>
 
@@ -69,19 +71,17 @@
 
             <div class="rightbar">
 
-                <div class="bread"><a href="homepage_base_index.html">首页</a> >最新动态</div>
+                <div class="bread"><a href="{{ url_for("homepage.index") }}">首页</a> >最新动态</div>
 
                 <ul class="ul_news">
-
-
-                    <li><span>2016-07-02</span><a href="#">大数据:网友推荐暑期旅游热门景点排行榜</a></li>
-
-                    <li><span>2016-07-02</span><a href="#">大数据:网友推荐暑期旅游热门景点排行榜</a></li>
-
-                    <li><span>2016-07-02</span><a href="#">大数据:网友推荐暑期旅游热门景点排行榜</a></li>
-
-                    <li><span>2016-07-02</span><a href="#">大数据:网友推荐暑期旅游热门景点排行榜</a></li>
-
+                    {% if data.news %}
+                        {% for item in data.news %}
+                            <li><span>{{ item.time }}</span><a href="{{ item.url }}">{{ item.title }}</a></li>
+                        {% endfor %}
+                    {% else %}
+                        <li><span>2019-01-07</span><a href="http://www.xyta.net/html/zsyz/xmdt/201812312635.html">商城县第四届“大美里罗城”大别山民俗旅游节盛大开幕</a>
+                        </li>
+                    {% endif %}
                 </ul>
 
 

@@ -228,3 +228,25 @@ class Question(BaseModel, db.Model):
             "create_time": self.create_time.strftime("%Y-%m-%d %H:%M:%S")
         }
         return resp_dict
+
+
+class Introduce(BaseModel, db.Model):
+    """
+    景区介绍
+    """
+    __tablename__ = "Introduce"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128), nullable=False)
+    title = db.Column(db.String(128), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+
+    def to_dic(self):
+        resp_dict = {
+            'id': self.id,
+            'name': self.name,
+            'title': self.title,
+            'content': self.content,
+            "create_time": self.create_time.strftime("%Y-%m-%d %H:%M:%S"),
+            'update_time': self.update_time.strftime("%Y-%m-%d %H:%M:%S")
+        }
+        return resp_dict

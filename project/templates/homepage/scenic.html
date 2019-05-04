@@ -1,0 +1,106 @@
+{% extends "homepage/homepage_base_index.html" %}
+
+{% block link %}
+    <link href="../../static/homepage/css/base.css" rel="stylesheet" type="text/css">
+    <link href="../../static/homepage/css/pagename.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+{% block container %}
+    <div class="container">
+
+        <!--content开始-->
+
+        <div class="content clearfix">
+
+            <div class="leftbar">
+
+                <div class="leftnav">
+
+                    <h1>话说信阳</h1>
+
+                    <ul class="ul_left">
+
+
+                        <li><h3><a href="scenic">信阳简介</a></h3>
+
+                        </li>
+
+
+                        <li><h3><a href="Culture.html">信阳文化</a></h3>
+
+                        </li>
+
+
+                        <li><h3><a href="historic.html">景区介绍</a></h3>
+
+                        </li>
+
+                    </ul>
+
+
+                </div>
+
+                <div class="left_lx">
+
+                    <h1>联系方式</h1>
+
+                    <p>地址：河南省信阳市平桥区羊山街道信阳农林学院</p>
+
+                    <p>联系人：刘敏</p>
+
+                    <p>学号：151413203</p>
+
+                    <p>电话：+86 17739571362</p>
+
+                    <p>QQ：1620183385</p>
+
+                    <p>网址：www.liumin.com</p>
+
+                    <p>邮编：464000</p>
+
+                </div>
+
+            </div>
+
+            <div class="rightbar">
+
+                <div class="bread"><a href="{{ url_for("homepage.index") }}">首页</a> > <a href="{{ url_for("homepage.tourism") }}">旅游景点</a> > <a href="">{{ data.know.title }}</a></div>
+
+
+                <div class="con_news">
+
+                    <p class="p_tit2">
+
+                        <span>{{ data.know.title }}</span>
+
+                        发布人:{{ data.know.user_id }}　　发布时间：{{ data.know.advice_time }}
+
+                    </p>
+
+                    <div class="con">
+
+                        <p>
+
+                        {{ data.know.content }}
+
+                        <p>
+
+                            <br/>
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <!--content结束-->
+
+    </div>
+{% endblock %}

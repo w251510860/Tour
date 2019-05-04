@@ -11,23 +11,17 @@
     <meta content="宜居之城-信阳" name="keywords"/>
 
     <meta content="宜居之城-信阳" name="description"/>
+    <link href="../../static/homepage/css/base.css" rel="stylesheet" type="text/css">
+    <link href="../../static/homepage/css/pagename.css" rel="stylesheet" type="text/css">
     {% block link %}
-        <link href="../../static/homepage/css/base.css" rel="stylesheet" type="text/css">
-
-        <link href="../../static/homepage/css/pagename.css" rel="stylesheet" type="text/css">
     {% endblock %}
+    <script type="text/javascript" src="../../static/homepage/js/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="../../static/homepage/js/jquery.SuperSlide.2.1.js"></script>
+    <script type="text/javascript" src="../../static/homepage/js/homepage.js"></script>
     {% block script %}
-        <script type="text/javascript" src="../../static/homepage/js/jquery-1.6.2.min.js"></script>
-        <script type="text/javascript" src="../../static/homepage/js/homepage.js"></script>
-        <script type="text/javascript" src="../../static/homepage/js/jquery.SuperSlide.2.1.js"></script>
+{#        <script type="text/javascript" src="../../static/homepage/js/leave.js"></script>#}
+{#        <script type="text/javascript" src="../../static/homepage/js/historic.js"></script>#}
     {% endblock %}
-<style>
-.login_form {
-	position:fixed;
-	top:30px;
-	right:5px;
-}
-</style>
 </head>
 
 
@@ -41,10 +35,14 @@
     <div class="w1000">
 
         <p>你好，欢迎光临宜居之城信阳！</p>
-
-        <div class="contact"><a href="javascript:;" class="login_btn" >用户登陆</a> <a href="javascript:;" class="register_btn">注册</a>
-        </div>
-
+        {% if data.user_info %}
+            <div class="contact"><a href="javascript:;" class="nick_name">{{ data.user_info.nick_name }}</a> <a
+                    href="javascript:;"
+                    class="logout" onclick="logout()">退出</a></div>
+        {% else %}
+            <div class="contact"><a href="javascript:;" class="login_btn">用户登陆</a> <a href="javascript:;"
+                                                                                      class="register_btn">注册</a></div>
+        {% endif %}
     </div>
 
 </div>
@@ -55,11 +53,11 @@
     <div class="header_bottom">
 
         <a href="homepage_base_index.html"><img src="../../static/homepage/images/logo.jpg" width="294" height="49"
-                                                alt="" title="绿城之都-南宁"></a>
+                                                alt="" title="宜居之城-信阳"></a>
 
         <ul>
 
-            <li><a href="{{ url_for("homepage.homepage") }}">网站首页</a></li>
+            <li><a href="{{ url_for("homepage.index") }}">网站首页</a></li>
 
             <li><a href="{{ url_for("homepage.history") }}">旅游资讯</a></li>
 
@@ -95,9 +93,9 @@
 
                 <ul>
 
-                    <li style="background:url(../../static/homepage/images/banner_4.jpg) no-repeat center top;"></li>
+                    <li style="background:url(../../static/homepage/images/cs.jpg) no-repeat center top; background-size:1920px 334px;"></li>
 
-                    <li style="background:url(../../static/homepage/images/banner_2.jpg) no-repeat center top;"></li>
+                    <li style="background:url(../../static/homepage/images/jns.jpg) no-repeat center top;background-size:1920px 334px;"></li>
 
 
                 </ul>
@@ -140,7 +138,7 @@
 
         <div class="content">
 
-            <p class="p_tit1">走进南宁</p>
+            <p class="p_tit1">走进信阳</p>
 
             <ul class="ul_jishu clearfix">
 
@@ -150,20 +148,20 @@
                             src="../../static/homepage/images/pic_1.jpg" width="291" height="126" alt="" title=""></a>
 
                     <p>
-                        <a href="../../static/homepage/template/introduce.html">南宁简介</a>
-                        南宁，简称“邕”，是广西壮族自治区首府，全区政治、经济、交通、科教文卫、金融和信息中心，是中国面向东盟开放合作的前沿城市、中国—东盟博览会永久举办地、北部湾经济区核心城市、国家“一带一路”有机衔接的重要门户城市。
+                        <a href="../../static/homepage/template/introduce.html">信阳简介</a>
+                        信阳市是中华人民共和国河南省下辖的地级市，位于河南省南端，唐代为“申州”州治地，故有“申城”之称。东望安徽，南控荆楚，是江淮河汉空间内的战略要地，也是鄂、豫、皖三省交界地带的区域性中心城市。信阳市总面积1.89万平方公里，有858.96万人口。
                     </p>
 
                 </li>
 
                 <li class="fl ml20">
 
-                    <a href="../../static/homepage/template/Culture.html"><img
+                    <a href="Culture.html"><img
                             src="../../static/homepage/images/pic_2.jpg" width="291" height="126" alt="" title=""></a>
 
                     <p>
-                        <a href="../../static/homepage/template/Culture.html">南宁文化</a>
-                        南宁别称绿城、凤凰城、五象城。旅游资源丰富，北连桂林，南接北海，构成了广西的黄金旅游带。壮丽的边关风采、浪漫的海滩风貌、迷人的异国情调，星罗棋布的灵山秀水，古朴悠远的古迹故址，山、水、人、情构成南宁多层次的旅游景观。
+                        <a href="Culture.html">信阳文化</a>
+                        信阳素有“北国江南，江南北国”之美誉，是中国优秀旅游城市、国家级生态示范市、中国十佳宜居城市，还是全国十大名茶之一信阳毛尖的诞生地。信阳作为曾经的鄂豫皖革命根据地，被国务院被列入全国12个重点红色旅游区。
                     </p>
 
                 </li>
@@ -174,8 +172,8 @@
                             src="../../static/homepage/images/pic_3.jpg" width="291" height="126" alt="" title=""></a>
 
                     <p>
-                        <a href="historic.html">南宁历史</a>
-                        南宁历史悠久，在古代，南宁属于百越领地。秦始皇统一岭南地区后，南宁属于桂林郡。西汉时期，汉武帝又将它置于玉林郡管辖。东晋大兴元年（公元318年），置大兴郡，以南宁为郡治所在地，南宁建制从此开始，至今已有1600多年。
+                        <a href="historic.html">信阳历史</a>
+                        信阳是一座历史古城。早在八千多年前，境内淮河两岸就出现了相当规模的原始农业，从东到西分布有裴李岗文化、龙山文化和屈家岭文化遗址多处。
                     </p>
 
                 </li>
@@ -187,64 +185,64 @@
 
                 <div class="fl1 fldiv">
 
-                    <a href="#"><img src="../../static/homepage/images/pic_4.jpg" width="75" height="76" alt=""
+                    <a href="#"><img src="../../static/homepage/images/ysxq.png" width="75" height="76" alt=""
                                      title=""></a>
 
-                    <p><a href="#">人民公园</a></p>
+                    <p><a href="#">人羊山新区</a></p>
 
                 </div>
 
                 <div class="fl2 fldiv">
 
-                    <a href="#"><img src="../../static/homepage/images/pic_5.jpg" width="75" height="76" alt=""
+                    <a href="#"><img src="../../static/homepage/images/jls.png" width="75" height="76" alt=""
                                      title=""></a>
 
-                    <p><a href="#">南宁海底世界</a></p>
+                    <p><a href="#">金兰山</a></p>
 
                 </div>
 
                 <div class="fl3 fldiv">
 
-                    <a href="#"><img src="../../static/homepage/images/pic_6.jpg" width="75" height="76" alt=""
+                    <a href="#"><img src="../../static/homepage/images/nwh.jpg" width="75" height="76" alt=""
                                      title=""></a>
 
-                    <p><a href="#">金花茶公园</a></p>
+                    <p><a href="#">南湾湖</a></p>
 
                 </div>
 
                 <div class="fl4 fldiv">
 
-                    <a href="#"><img src="../../static/homepage/images/pic_7.jpg" width="75" height="76" alt=""
+                    <a href="#"><img src="../../static/homepage/images/hbs.jpg" width="75" height="76" alt=""
                                      title=""></a>
 
-                    <p><a href="#">五象广场</a></p>
+                    <p><a href="#">黄柏山</a></p>
 
                 </div>
 
                 <div class="fl5 fldiv">
 
-                    <a href="#"><img src="../../static/homepage/images/pic_8.jpg" width="75" height="76" alt=""
+                    <a href="#"><img src="../../static/homepage/images/jgs.jpg" width="75" height="76" alt=""
                                      title=""></a>
 
-                    <p><a href="#">地王云顶</a></p>
+                    <p><a href="#">鸡公山</a></p>
 
                 </div>
 
                 <div class="fl6 fldiv">
 
-                    <a href="#"><img src="../../static/homepage/images/pic_9.jpg" width="75" height="76" alt=""
+                    <a href="#"><img src="../../static/homepage/images/sh.jpeg" width="75" height="76" alt=""
                                      title=""></a>
 
-                    <p><a href="#">南宁民歌湖游船</a></p>
+                    <p><a href="#">浉河</a></p>
 
                 </div>
 
                 <div class="fl7 fldiv">
 
-                    <a href="#"><img src="../../static/homepage/images/pic_10.jpg" width="75" height="76" alt=""
+                    <a href="#"><img src="../../static/homepage/images/xsh.jpeg" width="75" height="76" alt=""
                                      title=""></a>
 
-                    <p><a href="#">名树博览园</a></p>
+                    <p><a href="#">香山湖</a></p>
 
                 </div>
 
@@ -252,7 +250,7 @@
 
             <div class="zjfc">
 
-                <p class="p_tit1">秀丽南宁</p>
+                <p class="p_tit1">秀丽信阳</p>
 
                 <div class="picScroll-left">
 
@@ -360,15 +358,14 @@
 
 <div class="footer">
 
-    <p><a href="homepage_base_index.html">首页</a> | <a href="historic.html">历史</a> | <a
-            href="beautiful.html">风景</a> | <a
-            href="tourism.html">旅游</a> | <a
-            href="delicacy.html">美食</a> | <a
-            href="new.html">动态</a> | <a href="leave.html">旅游</a>|
+    <p><a href="#">首页</a> | <a href="#">历史</a> | <a
+            href="#">风景</a> | <a
+            href="#">旅游</a> | <a
+            href="#">美食</a> | <a
+            href="#">动态</a> | <a href="#">旅游</a>|
         <a href="connection.html">联系我们</a></p>
 
-    <p>Copyright &copy; 2015－2016 All Rights Reserved 版权所有 XXXXXXXXXXXXXXXXXX</p>
-    <p>地址：XXXXXXXXXXXXXXXXXX 来源:<a href="http://www.mycodes.net/" target="_blank">源码之家</a></p>
+    <p>Copyright &copy; 2018－2019 All Rights Reserved </p>
 
 </div>
 <!--footer 结束-->
@@ -376,27 +373,51 @@
 <!--注册表单 开始 -->
 <!--注册表单 结束 -->
 <!--登陆 开始 -->
-<form class="login_form_con">
-        <div class="login_form">
-            <div class="login_title">
-                <h3>登 录</h3>
-                <a href="javascript:;" class="shutoff"></a>
+<form class="login">
+    <div class="box-2 le-2">
+        <div class="flrg-1">
+            <h3 class="regist_title">登录</h3>
+            <div class="a">
+                <!--<label>账号：</label>-->
+                <input type="text" id="login-telephone-number" class="in-1" placeholder="请输入账号">
             </div>
-            <div class="form_group">
-                <input id="mobile" type="text" name="mobile" autocomplete="off">
-                <div class="input_tip">手机号</div>
-                <div id="login-mobile-err" class="error_tip">手机号不能为空</div>
+            <div class="a">
+                <!--<label>密码：</label>-->
+                <input type="password" id="login-password" class="in-1" placeholder="请输入密码">
             </div>
-            <div class="form_group">
-                <input id="password" type="password" name="password">
-                <div class="input_tip">密码(不少于6位)</div>
-                <div id="login-password-err" class="error_tip">密码不能为空</div>
+            <div class="a">
+                <button class="login_button" type="submit" value="Submit">登录</button>
             </div>
-            <input type="submit" name="" value="登 录" class="input_sub">
-            <div class="down_link">还没有账号？<a href="javascript:;" class="to_register">立即注册</a></div>
+            <div class="a">
+                <a href="#" class="to_regist">还没注册？</a>
+            </div>
         </div>
-        <div class="mask"></div>
-    </form>
+    </div>
+</form>
+<form class="regist">
+    <div class="box-2 le-2">
+
+        <div class="flrg-1">
+            <h2 class="regist_title">注册</h2>
+            <div class="a">
+                <input type="text" id="username" class="in-1" placeholder="您的昵称">
+            </div>
+            <div class="a">
+                <input type="text" id="telephone-number" class="in-1" placeholder="输入手机号码">
+            </div>
+            <div class="a">
+                <input type="password" id="password" class="in-1" placeholder="输入密码">
+            </div>
+            <div class="a">
+                <input type="password" id="re-password" class="in-1" placeholder="再次确认密码">
+            </div>
+            <div class="a">
+                <br>
+                <button class="regist_button" type="submit" value="Submit">注册</button>
+            </div>
+        </div>
+    </div>
+</form>
 <!--登陆 结束 -->
 </body>
 

@@ -31,10 +31,12 @@ def create_app(config_name):
     app.register_blueprint(homepage_blueprint)
     from project.modules.passport import passport_blu
     app.register_blueprint(passport_blu)
+    from project.modules.scenic import scenic_blu
+    app.register_blueprint(scenic_blu)
 
     @app.after_request
     def after_request(response):
-        csrf = generate_csrf(configs[config_name].SECRET_KEY)
+        csrf = generate_csrf()
         response.set_cookie("csrf_token", csrf)
         return response
 
@@ -43,7 +45,7 @@ def create_app(config_name):
     app.add_template_filter(filter_customer.filter_input_type)
     app.add_template_filter(filter_customer.filter_user_css)
 
-    CSRFProtect(app)
+    # CSRFProtect(app)
 
     Session(app)
 

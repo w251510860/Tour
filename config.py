@@ -1,9 +1,8 @@
 import redis
-import flask_session
+import logging
 
 
 class BaseConfig:
-
     SECRET_KEY = "secret_key"
 
     DEBUG = True
@@ -11,7 +10,7 @@ class BaseConfig:
     #
     LOGGING_DEBUG = "ERROR"
 
-    SQLALCHEMY_DATABASE_URI = "mysql://root:mysql@127.0.0.1:3306/tour"
+    SQLALCHEMY_DATABASE_URI = "mysql://root:wjldhr00@127.0.0.1:3306/tour"
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
@@ -29,7 +28,8 @@ class BaseConfig:
 
 
 class DevConfig(BaseConfig):
-    pass
+    DEBUG = True
+    LOG_LEVEL = logging.DEBUG
 
 
 configs = {
