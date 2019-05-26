@@ -82,6 +82,7 @@ $(function () {
             type: 'POST',
             data: JSON.stringify(params),
             contentType: "application/json",
+            dataType: "json",
             // headers:{'X-CSRFToken':getCookie('csrf_token')},
             success: function (resp) {
                 if (resp.errno == "0"){

@@ -80,7 +80,9 @@
                     </p>
 
                     <div class="con">
-
+                        {% for img in data.img %}
+                        <img src="{{ img }}">
+                        {% endfor %}
                         <p>
 
                         {{ data.know.content }}

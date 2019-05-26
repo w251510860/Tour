@@ -15,7 +15,7 @@ $(function(){
     $(this).ajaxSubmit({
       url: "/admin/alter_pic/",
       type: "POST",
-      headers: {"X-CSRF-Token": getCookie('csrf_token')},
+      // headers: {"X-CSRF-Token": getCookie('csrf_token')},
       success: function(resp){
         alert(resp.errmsg);
         alert(resp.data.pic_url);
@@ -31,7 +31,7 @@ $(function(){
     $(this).ajaxSubmit({
       url: "/admin/alter_user_info/",
       type: "POST",
-      headers: {"X-CSRF-Token": getCookie('csrf_token')},
+      // headers: {"X-CSRF-Token": getCookie('csrf_token')},
       success: function(resp){
         alert(resp.errmsg);
         $(".alter_info_window").hide();

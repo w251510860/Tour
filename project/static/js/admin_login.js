@@ -16,9 +16,9 @@ $(function(){
             url:"/admin/login",
             type:'POST',
             data: $("#form_action").serialize(),
-            headers:{
-                "X-CSRF-Token": getCookie('csrf_token')
-            },
+            // headers:{
+            //     "X-CSRF-Token": getCookie('csrf_token')
+            // },
             success:function (resp) {
 
                 if(resp.error==200){

@@ -34,11 +34,11 @@ def create_app(config_name):
     from project.modules.scenic import scenic_blu
     app.register_blueprint(scenic_blu)
 
-    @app.after_request
-    def after_request(response):
-        csrf = generate_csrf()
-        response.set_cookie("csrf_token", csrf)
-        return response
+    # @app.after_request
+    # def after_request(response):
+    #     csrf = generate_csrf()
+    #     response.set_cookie("csrf_token", csrf)
+    #     return response
 
     from project.modules.utils import filter_customer
     app.add_template_filter(filter_customer.filter_css)
